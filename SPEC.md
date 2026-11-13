@@ -1,4 +1,4 @@
-# SPEC — Sistema de Gestión Ganadera Finca Guatavita
+﻿# SPEC — Sistema de Gestión Ganadera FINCA ANGEL MARIA
 
 ## Arquitectura
 - Frontend: HTML + CSS + JavaScript vanilla (NO frameworks, NO React/Vue/Angular)
@@ -196,7 +196,7 @@ Exporta:
 - `exportToExcel()` → genera y descarga archivo .xlsx
 
 Formato Excel basado en el archivo del usuario:
-- Título: "RELACION GANADO FINCA GUATAVITA UVER QUINTERO"
+- Título: "RELACION GANADO FINCA ANGEL MARIA UVER QUINTERO"
 - Columnas: N°, PESO KG entrada, precio entrada, precio total, tipo, nombre, observaciones
 - Secciones separadas: Vacas, Toros, Novillas, Terneros
 

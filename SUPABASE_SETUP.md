@@ -1,4 +1,4 @@
-# Guía de Configuración de Supabase — Finca Guatavita
+﻿# Guía de Configuración de Supabase — FINCA ANGEL MARIA
 
 Esta guía le explica paso a paso cómo configurar la base de datos en la nube para la aplicación de gestión ganadera.
 
@@ -17,7 +17,7 @@ Esta guía le explica paso a paso cómo configurar la base de datos en la nube p
 
 1. Una vez dentro de Supabase, haga clic en **"New Project"** (Nuevo Proyecto)
 2. Complete los datos:
-   - **Name** (Nombre): escriba `ganado-finca-guatavita`
+   - **Name** (Nombre): escriba `ganado-finca-ANGEL MARIA`
    - **Database Password** (Contraseña de base de datos): invente una contraseña segura y **guárdela en un lugar seguro** (la necesitará si quiere conectarse directamente a la base de datos)
    - **Region** (Región): seleccione la más cercana a Colombia, por ejemplo **South America (São Paulo)**
 3. Haga clic en **"Create new project"**
@@ -110,12 +110,12 @@ Si la aplicación estará alojada en GitHub Pages, debe configurar la URL de red
 1. Vaya a **"Authentication"** → **"URL Configuration"** en el menú lateral
 2. En el campo **"Site URL"**, ingrese la URL de su sitio en GitHub Pages:
    ```
-   https://SU-USUARIO.github.io/ganado-finca-guatavita/
+   https://SU-USUARIO.github.io/ganado-finca-ANGEL MARIA/
    ```
    (Reemplace `SU-USUARIO` con su nombre de usuario de GitHub)
 3. En **"Redirect URLs"** (URLs de redirección), haga clic en **"Add URL"** y agregue:
    ```
-   https://SU-USUARIO.github.io/ganado-finca-guatavita/**
+   https://SU-USUARIO.github.io/ganado-finca-ANGEL MARIA/**
    ```
 4. Haga clic en **"Save"** (Guardar)
 

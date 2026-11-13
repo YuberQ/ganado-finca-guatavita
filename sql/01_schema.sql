@@ -1,6 +1,6 @@
--- =============================================================
+﻿-- =============================================================
 -- 01_schema.sql
--- Schema for Sistema de Gestión Ganadera Finca Guatavita
+-- Schema for Sistema de Gestión Ganadera FINCA ANGEL MARIA
 -- Run this FIRST in Supabase SQL Editor
 -- =============================================================
 

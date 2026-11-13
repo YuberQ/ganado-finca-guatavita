@@ -16,10 +16,18 @@ export async function renderDashboard(container) {
 
         container.innerHTML = `
       <div class="farm-hero-banner">
-        <div class="farm-hero-frame">
-          <h1 class="farm-hero-title">FINCA GUATAVITA</h1>
+                <div class="farm-hero-frame">
+          <svg style="width:58px;height:58px;color:#ffffff;margin:0 auto 10px auto;display:block;" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="square" />
+            <line x1="28" y1="28" x2="28" y2="72" stroke="currentColor" stroke-width="5" stroke-linecap="square" />
+            <line x1="46" y1="28" x2="46" y2="72" stroke="currentColor" stroke-width="5" stroke-linecap="square" />
+            <line x1="28" y1="50" x2="46" y2="50" stroke="currentColor" stroke-width="5" stroke-linecap="square" />
+            <path d="M 68 32 C 60 32 55 40 55 50 C 55 60 60 68 68 68 C 76 68 81 60 81 50 C 81 40 76 32 68 32 Z" fill="none" stroke="currentColor" stroke-width="4.8" />
+            <line x1="68" y1="60" x2="80" y2="74" stroke="currentColor" stroke-width="5" stroke-linecap="square" />
+          </svg>
+          <h1 class="farm-hero-title">FINCA ANGEL MARIA</h1>
           <div class="farm-hero-divider"></div>
-          <p class="farm-hero-subtitle">Crianza de Ganado &bull; Control de Inventario &bull; Uver Quintero</p>
+          <p class="farm-hero-subtitle">HIERRO DE MARCAR HQ &bull; INVENTARIO GANADERO</p>
         </div>
       </div>
 

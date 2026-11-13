@@ -1,4 +1,4 @@
-// config.js — Configuración de Supabase para Finca Guatavita
+﻿// config.js — Configuración de Supabase para FINCA ANGEL MARIA
 
 const SUPABASE_URL = 'https://jkjsbgijgzlijsmmdxch.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_MPg1W9YiH6sGo7FjkQ3qBg_dfJ7uEEN';

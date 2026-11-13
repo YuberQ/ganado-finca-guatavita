@@ -11,7 +11,7 @@ export function renderExportPage(container) {
       <div class="card-body">
         <p style="font-size:14px; color:var(--text-secondary); margin-bottom:20px; line-height:1.5;">
           Genera un archivo Excel (.xlsx) estructurado exactamente con el formato de la 
-          <strong>Finca Guatavita</strong>, organizado por categorías (Vacas, Toros, Novillas/Terneros, Vendidos y Perdidos), 
+          <strong>FINCA ANGEL MARIA</strong>, organizado por categorías (Vacas, Toros, Novillas/Terneros, Vendidos y Perdidos), 
           con el cálculo de peso, precio unitario de entrada y valor total.
         </p>
 
@@ -73,7 +73,7 @@ export function renderExportPage(container) {
 
 /**
  * Genera el archivo Excel idéntico al formato solicitado por el usuario:
- * RELACION GANADO FINCA GUATAVITA UVER QUINTERO
+ * RELACION GANADO FINCA ANGEL MARIA UVER QUINTERO
  * N° | PESO KG entrada | precio entrada | precio total | tipo | nombre | observaciones
  */
 export async function exportToExcel(options = { vacas: true, toros: true, novillas: true, vendidos: true, perdidos: true }) {
@@ -94,7 +94,7 @@ export async function exportToExcel(options = { vacas: true, toros: true, novill
 
     // Hoja principal: Inventario Activo
     const rows = [];
-    rows.push(['RELACION GANADO FINCA GUATAVITA UVER QUINTERO', '', '', '', '', '', '']);
+    rows.push(['RELACION GANADO FINCA ANGEL MARIA UVER QUINTERO', '', '', '', '', '', '']);
     rows.push(['', '', '', '', '', '', '']);
     rows.push(['', '', '', '', '', '', '']);
     rows.push(['', '', '', '', '', '', '']);
@@ -184,7 +184,7 @@ export async function exportToExcel(options = { vacas: true, toros: true, novill
     // Hoja adicional: Vendidos
     if (options.vendidos && vendidos && vendidos.length > 0) {
       const soldRows = [
-        ['ANIMALES VENDIDOS — FINCA GUATAVITA', '', '', '', '', '', '', ''],
+        ['ANIMALES VENDIDOS — FINCA ANGEL MARIA', '', '', '', '', '', '', ''],
         ['N°', 'Nombre', 'Tipo', 'Peso Entrada (kg)', 'Peso Salida (kg)', 'Precio Venta ($)', 'Fecha Venta', 'Comprador']
       ];
 
@@ -209,7 +209,7 @@ export async function exportToExcel(options = { vacas: true, toros: true, novill
     // Hoja adicional: Perdidos
     if (options.perdidos && perdidos && perdidos.length > 0) {
       const lostRows = [
-        ['ANIMALES PERDIDOS / BAJAS — FINCA GUATAVITA', '', '', '', ''],
+        ['ANIMALES PERDIDOS / BAJAS — FINCA ANGEL MARIA', '', '', '', ''],
         ['N°', 'Nombre', 'Tipo', 'Fecha Registro', 'Observaciones / Motivo']
       ];
 
@@ -228,7 +228,7 @@ export async function exportToExcel(options = { vacas: true, toros: true, novill
     }
 
     // Descargar archivo
-    window.XLSX.writeFile(wb, `Relacion_Ganado_Guatavita_${todayStr}.xlsx`);
+    window.XLSX.writeFile(wb, `Relacion_Ganado_ANGEL MARIA_${todayStr}.xlsx`);
     showToast('Archivo Excel descargado exitosamente', 'success');
 
   } catch (err) {

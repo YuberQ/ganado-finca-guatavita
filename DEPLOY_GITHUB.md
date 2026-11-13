@@ -1,4 +1,4 @@
-# 🐄 Manual de Despliegue en GitHub Pages — Finca Guatavita
+﻿# 🐄 Manual de Despliegue en GitHub Pages — FINCA ANGEL MARIA
 
 Esta guía le muestra cómo subir esta aplicación web a su cuenta de **GitHub** y activarla con **GitHub Pages** para que quede disponible en internet para usted y sus trabajadores autorizados.
 
@@ -8,7 +8,7 @@ Esta guía le muestra cómo subir esta aplicación web a su cuenta de **GitHub**
 
 1. Ingrese a su cuenta en [https://github.com](https://github.com)
 2. En la esquina superior derecha, haga clic en el botón **"+"** y seleccione **"New repository"**.
-3. En **Repository name**, escriba: `ganado-finca-guatavita`.
+3. En **Repository name**, escriba: `ganado-finca-ANGEL MARIA`.
 4. Seleccione **Public** (necesario para GitHub Pages en cuentas gratuitas estándar) o **Private** (si tiene cuenta Pro/Enterprise).
 5. Deje desmarcadas las opciones de "Add a README file", ".gitignore" y licencia.
 6. Haga clic en **"Create repository"**.
@@ -41,9 +41,9 @@ Ejecute los siguientes comandos:
 ```bash
 git init
 git add .
-git commit -m "Versión inicial: Sistema de Gestión Ganadera Finca Guatavita"
+git commit -m "Versión inicial: Sistema de Gestión Ganadera FINCA ANGEL MARIA"
 git branch -M main
-git remote add origin https://github.com/SU-USUARIO/ganado-finca-guatavita.git
+git remote add origin https://github.com/SU-USUARIO/ganado-finca-ANGEL MARIA.git
 git push -u origin main
 ```
 *(Reemplace `SU-USUARIO` por su nombre de usuario de GitHub).*
@@ -59,7 +59,7 @@ git push -u origin main
    - Folder: `/ (root)`
 4. Haga clic en **Save** (Guardar).
 5. Espere 1 a 2 minutos. GitHub generará el enlace público de su aplicación, que tendrá esta forma:
-   `https://SU-USUARIO.github.io/ganado-finca-guatavita/`
+   `https://SU-USUARIO.github.io/ganado-finca-ANGEL MARIA/`
 
 ---
 
