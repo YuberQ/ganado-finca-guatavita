@@ -1,5 +1,6 @@
 ﻿// app.js — Router y controlador principal de la SPA
-import { requireAuth, logout } from './auth.js';
+import { requireAuth, logout, iniciarCierrePorInactividad } from './auth.js';
+import { showToast } from './ui.js';
 import { renderDashboard, renderAddForm, renderAnimalDetail, renderEditForm } from './animals.js';
 import { renderBreedingForm, renderWeanForm } from './breeding.js';
 import { renderWeightSession } from './weights.js';
@@ -8,18 +9,21 @@ import { renderExportPage } from './excel.js';
 
 // Títulos para la barra superior
 const ROUTE_TITLES = {
-  '/dashboard': 'Dashboard — Ganado Activo',
-  '/add': 'Agregar Nuevo Animal',
-  '/weight-session': 'Jornada de Pesaje',
-  '/sold': 'Animales Vendidos',
-  '/lost': 'Animales Eliminados',
-  '/export': 'Exportar Relación a Excel'
+  '/dashboard': 'El ganado',
+  '/add': 'Nuevo animal',
+  '/weight-session': 'Día de pesaje',
+  '/sold': 'Vendidos',
+  '/lost': 'Bajas',
+  '/export': 'Relación en Excel'
 };
 
 document.addEventListener('DOMContentLoaded', async () => {
   // 1. Verificar autenticación
   try {
-    await requireAuth();
+    const session = await requireAuth();
+    if (!session) return;
+    // 2. Cerrar la sesión tras 20 minutos sin uso
+    iniciarCierrePorInactividad((msg) => showToast(msg, 'info'));
   } catch (e) {
     // Si no está configurado Supabase o no hay sesión, se maneja en auth.js
     console.warn('Verificación de sesión:', e);
@@ -65,34 +69,34 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
       if (parts.length === 0 || parts[0] === 'dashboard') {
-        if (pageTitle) pageTitle.textContent = 'Dashboard — Ganado Activo';
+        if (pageTitle) pageTitle.textContent = 'El ganado';
         await renderDashboard(pageContent);
       } else if (parts[0] === 'add') {
-        if (pageTitle) pageTitle.textContent = 'Agregar Animal';
+        if (pageTitle) pageTitle.textContent = 'Nuevo animal';
         await renderAddForm(pageContent);
       } else if (parts[0] === 'animal' && parts[1]) {
-        if (pageTitle) pageTitle.textContent = 'Ficha del Animal';
+        if (pageTitle) pageTitle.textContent = 'Ficha del animal';
         await renderAnimalDetail(pageContent, parts[1]);
       } else if (parts[0] === 'edit' && parts[1]) {
-        if (pageTitle) pageTitle.textContent = 'Editar Animal (Con Nota)';
+        if (pageTitle) pageTitle.textContent = 'Editar animal';
         await renderEditForm(pageContent, parts[1]);
       } else if (parts[0] === 'breeding' && parts[1]) {
-        if (pageTitle) pageTitle.textContent = 'Registrar Cría';
+        if (pageTitle) pageTitle.textContent = 'Nueva cría';
         await renderBreedingForm(pageContent, parts[1]);
       } else if (parts[0] === 'wean' && parts[1]) {
-        if (pageTitle) pageTitle.textContent = 'Destetar Ternero';
+        if (pageTitle) pageTitle.textContent = 'Destete';
         await renderWeanForm(pageContent, parts[1]);
       } else if (parts[0] === 'weight-session') {
-        if (pageTitle) pageTitle.textContent = 'Jornada de Pesaje';
+        if (pageTitle) pageTitle.textContent = 'Día de pesaje';
         await renderWeightSession(pageContent);
       } else if (parts[0] === 'sold') {
-        if (pageTitle) pageTitle.textContent = 'Animales Vendidos';
+        if (pageTitle) pageTitle.textContent = 'Vendidos';
         await renderSoldList(pageContent);
       } else if (parts[0] === 'lost') {
-        if (pageTitle) pageTitle.textContent = 'Animales Eliminados';
+        if (pageTitle) pageTitle.textContent = 'Bajas';
         await renderLostList(pageContent);
       } else if (parts[0] === 'export') {
-        if (pageTitle) pageTitle.textContent = 'Exportar a Excel';
+        if (pageTitle) pageTitle.textContent = 'Relación en Excel';
         renderExportPage(pageContent);
       } else {
         // Ruta desconocida, volver a dashboard
@@ -103,9 +107,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       pageContent.innerHTML = `
         <div class="card" style="margin:20px 0;">
           <div class="card-body">
-            <h3 style="color:var(--color-danger);">Error cargando la vista</h3>
+            <h3 style="color:var(--color-danger);">Esta página no cargó</h3>
             <p>${err.message}</p>
-            <a href="#/dashboard" class="btn btn-secondary" style="margin-top:12px;">Volver al Dashboard</a>
+            <a href="#/dashboard" class="btn btn-secondary" style="margin-top:12px;">Volver al ganado</a>
           </div>
         </div>
       `;

@@ -87,14 +87,14 @@ export function showLoading() {
     loader.id = 'global-loading';
     loader.style.position = 'fixed';
     loader.style.inset = '0';
-    loader.style.backgroundColor = 'rgba(17, 17, 17, 0.45)';
+    loader.style.backgroundColor = 'rgba(31, 27, 23, 0.35)';
     loader.style.display = 'flex';
     loader.style.alignItems = 'center';
     loader.style.justifyContent = 'center';
     loader.style.zIndex = '9999';
     loader.innerHTML = `
-      <div style="background:#ffffff; border:2px solid #111111; padding:16px 24px; font-family:var(--font-sans); font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:1px;">
-        Procesando registro...
+      <div style="background:var(--papel); border-radius:12px; padding:14px 22px; font-family:var(--font-sans); font-size:16px; font-weight:600; color:var(--potrero-oscuro); box-shadow:0 10px 30px rgba(0,0,0,0.18);">
+        Un momento…
       </div>
     `;
     document.body.appendChild(loader);
@@ -194,24 +194,24 @@ export function showNoteModal(title, onConfirm) {
     modal.innerHTML = `
       <div class="modal-content">
         <div class="modal-header">
-          <span>${escapeHTML(title || 'Nota Requerida de Auditoría')}</span>
+          <span>${escapeHTML(title || '¿Por qué el cambio?')}</span>
           <button class="modal-close" aria-label="Cerrar">&times;</button>
         </div>
         <div class="modal-body">
-          <p style="margin-bottom:12px; font-family:var(--font-sans); font-size:12px; font-weight:700; text-transform:uppercase; color:var(--brown-700);">
-            Este cambio requiere registrar una justificación formal para el historial:
+          <p style="margin-bottom:12px; font-size:15px; color:var(--tinta-suave);">
+            Escriba en pocas palabras qué pasó. Queda guardado en el historial del animal.
           </p>
           <div class="form-group">
-            <label class="form-label" for="modal-note-input">Motivo / Justificación *</label>
-            <textarea id="modal-note-input" class="form-textarea" rows="4" placeholder="Escriba aquí la razón del cambio (obligatorio)..." required></textarea>
-            <div id="modal-note-error" style="color:var(--color-danger); font-family:var(--font-sans); font-size:12px; font-weight:700; margin-top:4px; display:none;">
-              La nota es obligatoria para continuar.
+            <label class="form-label" for="modal-note-input">Motivo</label>
+            <textarea id="modal-note-input" class="form-textarea" rows="4" placeholder="Ej.: se pesó de nuevo, estaba mal el número…" required></textarea>
+            <div id="modal-note-error" style="color:var(--color-danger); font-size:14px; font-weight:600; margin-top:4px; display:none;">
+              Escriba el motivo para poder guardar.
             </div>
           </div>
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary btn-cancel">Cancelar</button>
-          <button class="btn btn-primary btn-save">Guardar Modificación</button>
+          <button class="btn btn-primary btn-save">Guardar</button>
         </div>
       </div>
     `;
@@ -263,7 +263,7 @@ export function showConfirm(message, onConfirm) {
     modal.innerHTML = `
       <div class="modal-content" style="max-width: 440px;">
         <div class="modal-header">
-          <span>Confirmación de Acción</span>
+          <span>¿Seguro?</span>
           <button class="modal-close" aria-label="Cerrar">&times;</button>
         </div>
         <div class="modal-body">
@@ -271,7 +271,7 @@ export function showConfirm(message, onConfirm) {
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary btn-cancel">Cancelar</button>
-          <button class="btn btn-primary btn-confirm">Continuar</button>
+          <button class="btn btn-primary btn-confirm">Sí, seguir</button>
         </div>
       </div>
     `;
@@ -306,7 +306,7 @@ export function showConfirm(message, onConfirm) {
 export function createAnimalCard(animal) {
   const photo = animal.foto_perfil_url
     ? `<img src="${escapeHTML(animal.foto_perfil_url)}" alt="${escapeHTML(animal.nombre)}" class="animal-card__photo" />`
-    : `<div class="animal-card__photo--placeholder">Sin Fotografía</div>`;
+    : `<div class="animal-card__photo--placeholder">Sin foto todavía</div>`;
 
   const tipo = animal.tipo || 'animal';
   const peso = animal.peso_actual || animal.peso_entrada;
@@ -316,11 +316,11 @@ export function createAnimalCard(animal) {
     <div class="animal-card" data-id="${escapeHTML(animal.id)}">
       ${photo}
       <div class="animal-card__info">
-        <div class="animal-card__number">Registro N° ${escapeHTML(animal.numero)}</div>
+        <div class="animal-card__number">N.º ${escapeHTML(animal.numero)}</div>
         <div class="animal-card__name">${escapeHTML(animal.nombre)}</div>
         <div class="animal-card__meta">
           <span class="badge badge-${escapeHTML(tipo)}">${escapeHTML(tipo)}</span>
-          <span style="font-family:var(--font-sans); font-size:12px; font-weight:700; color:var(--ink-soft);">${pesoStr}</span>
+          <span style="font-size:15px; font-weight:600; color:var(--ink-soft);">${pesoStr}</span>
         </div>
       </div>
     </div>

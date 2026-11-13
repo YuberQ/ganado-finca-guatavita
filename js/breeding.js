@@ -153,7 +153,7 @@ export async function renderBreedingForm(container, motherId) {
         }
 
                 try { localStorage.removeItem(draftCriaKey); } catch(e) {}
-        showToast('Cría registrada exitosamente', 'success');
+        showToast('Cría registrada. ¡Bienvenida al hato!', 'success');
         window.location.hash = `#/animal/${motherId}`;
       } catch (err) {
         console.error(err);
@@ -232,7 +232,7 @@ export async function renderWeanForm(container, calfId) {
         showLoading();
         try {
           await destetar(calfId, nuevoTipo);
-          showToast('Animal destetado exitosamente', 'success');
+          showToast('Destete registrado', 'success');
           window.location.hash = `#/animal/${calfId}`;
         } catch (err) {
           console.error(err);
