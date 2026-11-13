@@ -1,68 +1,65 @@
 ﻿/* ==========================================================
-   VARIABLES — Finca Ángel María
-   Colores tomados del campo: verde potrero, tierra, crema de
-   papel de libreta y el amarillo maíz de la planilla de Excel.
+   VARIABLES — Sistema de Gestión Ganadera FINCA ANGEL MARIA
+   Estilo FARMBODY / Artesanal Rústico Premium (Hudson Valley / Farmstead)
+   - Encabezado blanco marfil limpio con enlaces espaciados
+   - Fondo cálido rústico de papel Kraft / lino natural
+   - Cuadros de texto con marcos rectos de doble línea blanca/marrón
+   - Tipografía condensada artesanal en mayúsculas (tipo sello/letrero)
+   - Verde pino de montaña y marrón cuero envejecido
    ========================================================== */
 
 :root {
-  /* Paleta */
-  --potrero:          #2f5233;
-  --potrero-oscuro:   #1f3a24;
-  --potrero-claro:    #e8efe4;
-  --tierra:           #8b5e34;
-  --tierra-claro:     #f3e9dc;
-  --maiz:             #e0a82e;
-  --maiz-claro:       #fbf0d4;
-  --crema:            #f6f1e7;
-  --papel:            #fffdf8;
-  --linea:            #e3d9c6;
-  --tinta:            #2a2420;
-  --tinta-suave:      #6f6458;
+  /* ── Paleta Farmstead / Cuero & Pino ── */
+  --farm-leather-dark:  #2c1c14;
+  --farm-leather-warm:  #4a2e1d;
+  --farm-leather-light: #7a4f32;
+  
+  --farm-pine-dark:     #16281a;
+  --farm-pine-deep:     #213824;
+  --farm-pine-accent:   #345638;
 
-  /* Colores de estado */
-  --color-primary:    var(--potrero);
-  --color-secondary:  var(--tierra);
-  --color-danger:     #a33a2f;
-  --color-warning:    #9a6a10;
-  --color-success:    var(--potrero);
+  --farm-cream-light:   #fcfaf6;
+  --farm-cream-warm:    #f5f0e6;
+  --farm-parchment:     #eae3d2;
+  --farm-border-rule:   #d4caba;
+
+  /* Colores de marca */
+  --color-primary:      var(--farm-pine-dark);
+  --color-secondary:    var(--farm-leather-warm);
+  --color-danger:       #7d1c1c;
+  --color-warning:      #8c5000;
+  --color-success:      #214a27;
 
   /* Fondos y textos */
-  --bg-body:          var(--crema);
-  --bg-card:          var(--papel);
-  --bg-sidebar:       var(--potrero-oscuro);
-  --text-primary:     var(--tinta);
-  --text-secondary:   var(--tinta-suave);
-  --text-muted:       var(--tinta-suave);
-  --text-inverse:     #ffffff;
-  --ink-soft:         var(--tinta-suave);
+  --bg-body:            var(--farm-cream-warm);
+  --bg-card:            #ffffff;
+  --bg-sidebar:         var(--farm-leather-dark);
 
-  /* Nombres usados en algunas vistas */
-  --brown-100:        var(--tierra-claro);
-  --brown-300:        #e2cfb4;
-  --brown-700:        var(--tierra);
-  --green-700:        var(--potrero);
-  --border-color:     var(--linea);
+  --text-primary:       #211a16;
+  --text-secondary:     var(--farm-leather-warm);
+  --text-inverse:       #ffffff;
+  --text-muted:         #6b6159;
 
-  /* Bordes y sombras */
-  --radio:            10px;
-  --radio-sm:         7px;
-  --borde:            1px solid var(--linea);
-  --sombra:           0 1px 2px rgba(42, 36, 32, 0.06), 0 2px 8px rgba(42, 36, 32, 0.05);
-  --sombra-alta:      0 6px 24px rgba(42, 36, 32, 0.12);
+  /* Bordes de marco artesanal (como el recuadro blanco de Farmbody) */
+  --border-color:       #382b23;
+  --border-thick:       2px solid #211a16;
+  --border-box-frame:   3px solid #ffffff;
+  --border-light:       1px solid var(--farm-border-rule);
 
-  /* Tipografía */
-  --font-serif:       'Bitter', Georgia, 'Times New Roman', serif;
-  --font-sans:        'Source Sans 3', -apple-system, 'Segoe UI', Arial, sans-serif;
-  --font-display:     var(--font-serif);
-  --font-family:      var(--font-sans);
+  /* Tipografía Farmbody: Serif con clase + Sans condensado con tracking abierto */
+  --font-serif:         'Baskerville', 'Georgia', 'Garamond', serif;
+  --font-display:       'Impact', 'Oswald', 'Franklin Gothic Medium', 'Arial Black', sans-serif;
+  --font-sans:          -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  
+  --font-family:        var(--font-sans);
 
-  --font-size-xs:     13px;
-  --font-size-sm:     14px;
-  --font-size-base:   16px;
-  --font-size-h3:     19px;
-  --font-size-h2:     24px;
-  --font-size-h1:     32px;
-  --line-height:      1.5;
+  --font-size-xs:       11px;
+  --font-size-sm:       13px;
+  --font-size-base:     15px;
+  --font-size-h3:       19px;
+  --font-size-h2:       24px;
+  --font-size-h1:       34px;
+  --line-height:        1.45;
 
   /* Espaciado */
   --space-1:  4px;
@@ -74,6 +71,6 @@
   --space-7:  48px;
 
   /* Layout */
-  --sidebar-width:    248px;
-  --topbar-height:    60px;
+  --sidebar-width:      260px;
+  --topbar-height:      65px;
 }
