@@ -3,46 +3,39 @@ import { uploadPhoto, uploadProfilePhoto, addPhoto, getPhotos, deletePhoto } fro
 import { showModal, showNoteModal, showToast, showConfirm, showLoading, hideLoading, formatDate, formatDateTime, formatMoney, formatWeight, createAnimalCard, escapeHTML, setupMoneyInput, parseMoneyInput } from './ui.js';
 import { renderHistoryModal } from './history.js';
 import { renderSellForm } from './sales.js';
+import { getEstadisticas } from './db.js';
 
 // ── Dashboard ────────────────────────────────────────────────────────
 export async function renderDashboard(container) {
   showLoading();
   try {
-    const animales = await getAnimales({ estado: 'activo' });
+    const [animales, stats] = await Promise.all([
+      getAnimales({ estado: 'activo' }),
+      getEstadisticas()
+    ]);
 
-    const cuenta = (...tipos) => animales.filter(a => tipos.includes(a.tipo)).length;
-    const vacas = cuenta('vaca');
-    const toros = cuenta('toro');
-    const novillas = cuenta('novilla');
-    const terneros = cuenta('ternero', 'ternera');
-
-    const ahora = new Date();
-    const h = ahora.getHours();
-    const saludo = h < 5 ? 'Buenas noches' : h < 12 ? 'Buenos días' : h < 19 ? 'Buenas tardes' : 'Buenas noches';
-    const fechaTxt = ahora.toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long' });
-
-    container.innerHTML = `
-      <section class="saludo-finca">
-        <div>
-          <p class="saludo-finca__fecha">${fechaTxt.charAt(0).toUpperCase() + fechaTxt.slice(1)}</p>
-          <h1 class="saludo-finca__titulo">${saludo}</h1>
-          <p class="saludo-finca__resumen">${resumenGanado(animales.length, vacas, toros, novillas, terneros)}</p>
+        container.innerHTML = `
+      <div class="farm-hero-banner">
+                        <div class="farm-hero-frame">
+          <img src="assets/logo-angel-maria.png" alt="Logo Finca Angel Maria" style="width:130px;height:130px;object-fit:cover;filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));margin:0 auto 14px auto;display:block;" />
+          <h1 class="farm-hero-title">FINCA ANGEL MARIA</h1>
+          <div class="farm-hero-divider"></div>
+          <p class="farm-hero-subtitle">GANADERÍA TRADICIONAL &bull; CONTROL DE INVENTARIO</p>
         </div>
-        <a href="#/add" class="btn btn-primary">+ Nuevo animal</a>
-      </section>
+      </div>
 
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-card__value">${vacas}</div>
-          <div class="stat-card__label">${vacas === 1 ? 'Vaca' : 'Vacas'}</div>
+          <div class="stat-card__value">${stats.totalVacas ?? 0}</div>
+          <div class="stat-card__label">Vacas</div>
         </div>
         <div class="stat-card">
-          <div class="stat-card__value">${toros}</div>
-          <div class="stat-card__label">${toros === 1 ? 'Toro' : 'Toros'}</div>
+          <div class="stat-card__value">${stats.totalToros ?? 0}</div>
+          <div class="stat-card__label">Toros</div>
         </div>
         <div class="stat-card">
-          <div class="stat-card__value">${novillas + terneros}</div>
-          <div class="stat-card__label">Novillas y terneros</div>
+          <div class="stat-card__value">${(stats.totalTerneros ?? 0) + (stats.totalNovillas ?? 0)}</div>
+          <div class="stat-card__label">Terneros / Novillas</div>
         </div>
       </div>
 
@@ -52,7 +45,7 @@ export async function renderDashboard(container) {
         <button class="btn btn-sm filter-btn" data-filter="toro">Toros</button>
         <button class="btn btn-sm filter-btn" data-filter="novilla">Novillas</button>
         <button class="btn btn-sm filter-btn" data-filter="ternero">Terneros</button>
-        <input type="search" class="search-input" placeholder="Buscar por nombre o número" id="search-animals" />
+        <input type="text" class="search-input" placeholder="Buscar por nombre o número..." id="search-animals" />
       </div>
 
       <div class="animal-cards-grid" id="animal-grid"></div>
@@ -65,9 +58,7 @@ export async function renderDashboard(container) {
       const grid = document.getElementById('animal-grid');
       let filtered = animales;
 
-      if (currentFilter === 'ternero') {
-        filtered = filtered.filter(a => a.tipo === 'ternero' || a.tipo === 'ternera');
-      } else if (currentFilter !== 'todos') {
+      if (currentFilter !== 'todos') {
         filtered = filtered.filter(a => a.tipo === currentFilter);
       }
       if (searchQuery) {
@@ -79,9 +70,7 @@ export async function renderDashboard(container) {
       }
 
       if (filtered.length === 0) {
-        grid.innerHTML = animales.length === 0
-          ? '<div class="empty-state">Todavía no hay animales registrados. Empiece con <a href="#/add">Nuevo animal</a>.</div>'
-          : '<div class="empty-state">Ningún animal coincide con esa búsqueda.</div>';
+        grid.innerHTML = '<div class="empty-state">No se encontraron animales.</div>';
         return;
       }
 
@@ -115,22 +104,10 @@ export async function renderDashboard(container) {
     renderGrid();
   } catch (err) {
     console.error(err);
-    showToast('No se pudo cargar el ganado: ' + err.message, 'error');
+    showToast('Error cargando dashboard', 'error');
   } finally {
     hideLoading();
   }
-}
-
-function resumenGanado(total, vacas, toros, novillas, terneros) {
-  if (total === 0) return 'Todavía no hay animales registrados en la finca.';
-  const plural = (n, uno, varios) => `${n} ${n === 1 ? uno : varios}`;
-  const partes = [];
-  if (vacas) partes.push(plural(vacas, 'vaca', 'vacas'));
-  if (toros) partes.push(plural(toros, 'toro', 'toros'));
-  if (novillas) partes.push(plural(novillas, 'novilla', 'novillas'));
-  if (terneros) partes.push(plural(terneros, 'ternero', 'terneros'));
-  const lista = partes.length > 1 ? partes.slice(0, -1).join(', ') + ' y ' + partes[partes.length - 1] : partes[0];
-  return `${total === 1 ? 'Hay 1 animal' : `Hay ${total} animales`} en la finca${lista ? `: ${lista}` : ''}.`;
 }
 
 // ── Add Form ─────────────────────────────────────────────────────────
@@ -138,7 +115,7 @@ export async function renderAddForm(container) {
   const today = new Date().toISOString().split('T')[0];
 
   container.innerHTML = `
-    <h2>Nuevo animal</h2>
+    <h2>Agregar Animal</h2>
     <form id="add-animal-form" class="card">
       <div class="card-body">
 
@@ -314,7 +291,7 @@ export async function renderAddForm(container) {
       preview.innerHTML = '';
       const img = document.createElement('img');
       img.src = URL.createObjectURL(file);
-      img.style.cssText = 'max-width:200px;max-height:200px;margin-top:8px;border-radius:10px;object-fit:cover;';
+      img.style.cssText = 'max-width:200px;max-height:200px;margin-top:8px;border:2px solid #211a16;object-fit:cover;';
       preview.appendChild(img);
     }
 
@@ -331,7 +308,7 @@ export async function renderAddForm(container) {
       selectedExtraFiles.forEach(file => {
         const img = document.createElement('img');
         img.src = URL.createObjectURL(file);
-        img.style.cssText = 'width:90px;height:90px;border-radius:7px;object-fit:cover;';
+        img.style.cssText = 'width:90px;height:90px;border:1px solid #211a16;object-fit:cover;';
         preview.appendChild(img);
       });
     }
@@ -385,7 +362,7 @@ export async function renderAddForm(container) {
       }
 
             localStorage.removeItem('draft_add_animal');
-      showToast(`${data.nombre} ya quedó registrado`, 'success');
+      showToast('Animal agregado exitosamente', 'success');
       window.location.hash = '#/dashboard';
     } catch (err) {
       console.error(err);
@@ -429,7 +406,7 @@ export async function renderAnimalDetail(container, id) {
     const profileSrc = animal.foto_perfil_url || '';
     const profileHTML = profileSrc
       ? `<img src="${escapeHTML(profileSrc)}" alt="${escapeHTML(animal.nombre)}" class="detail-profile-photo" />`
-      : `<div class="detail-profile-placeholder">Sin foto todavía</div>`;
+      : `<div class="detail-profile-placeholder">Sin Fotografía</div>`;
 
     container.innerHTML = `
       <div class="detail-section">
@@ -626,7 +603,7 @@ export async function renderAnimalDetail(container, id) {
           showLoading();
           try {
             await marcarPerdido(id, nota);
-            showToast('El animal pasó a Bajas', 'success');
+            showToast('Animal movido al apartado de Eliminadas', 'success');
             window.location.hash = '#/dashboard';
           } catch (err) {
             console.error(err);
@@ -808,7 +785,7 @@ export async function renderEditForm(container, id) {
         try {
                     await updateAnimal(id, changes, nota);
           try { localStorage.removeItem(draftEditKey); } catch(e) {}
-          showToast('Cambios guardados', 'success');
+          showToast('Animal actualizado exitosamente', 'success');
           window.location.hash = `#/animal/${id}`;
         } catch (err) {
           console.error(err);

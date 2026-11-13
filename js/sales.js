@@ -91,7 +91,7 @@ export async function renderSellForm(animalId) {
         });
 
         close();
-        showToast('Venta registrada', 'success');
+        showToast('Venta registrada exitosamente', 'success');
         window.location.hash = '#/sold';
       } catch (err) {
         console.error(err);
@@ -154,7 +154,7 @@ export async function renderSoldList(container) {
     container.innerHTML = `
       <div class="card">
         <div class="card-header" style="display:flex; justify-content:space-between; align-items:center;">
-          <h2>Vendidos</h2>
+          <h2>Animales Vendidos</h2>
           <span style="font-size:14px; font-weight:600; color:var(--text-secondary);">
             Total: ${vendidos ? vendidos.length : 0} animales
           </span>
@@ -252,7 +252,7 @@ export async function renderLostList(container) {
     container.innerHTML = `
       <div class="card">
         <div class="card-header" style="display:flex; justify-content:space-between; align-items:center;">
-          <h2>Bajas</h2>
+          <h2>Animales Eliminados</h2>
           <span style="font-size:14px; font-weight:600; color:var(--color-danger);">
             Total: ${perdidos ? perdidos.length : 0} animales
           </span>
@@ -293,7 +293,7 @@ export async function renderLostList(container) {
           showLoading();
           try {
             await revertirPerdido(id, nota);
-            showToast(`${nombre} volvió al ganado activo`, 'success');
+            showToast(`Animal "${nombre}" restaurado exitosamente al inventario activo`, 'success');
             renderLostList(container);
           } catch (err) {
             console.error(err);

@@ -11,7 +11,7 @@ export async function renderWeightSession(container) {
       <div class="card">
         <div class="card-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
           <div>
-            <h2>Día de pesaje</h2>
+            <h2>️ Jornada de Pesaje</h2>
             <p style="margin:4px 0 0 0; font-size:13px; color:var(--text-secondary);">
               Agregue nuevos pesajes sin modificar el histórico. La fecha se registra automáticamente.
             </p>
@@ -222,7 +222,7 @@ export async function renderWeightSession(container) {
             if (item.notaInput) item.notaInput.value = '';
             guardados++;
           }
-          showToast(guardados === 1 ? 'Se guardó 1 pesaje' : `Se guardaron ${guardados} pesajes`, 'success');
+          showToast(`¡Se guardaron ${guardados} pesajes exitosamente!`, 'success');
         } catch (err) {
           console.error(err);
           showToast(`Se guardaron ${guardados} pesajes antes de un error: ${err.message}`, 'error');
