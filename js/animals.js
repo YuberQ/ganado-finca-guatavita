@@ -225,8 +225,7 @@ export async function renderAddForm(container) {
     </form>
   `;
 
-  // Auto-set sexo when tipo changes
-  const tipoSelect =   // Restaurar borrador de campos si el usuario cambió de pestaña
+  // Restaurar borrador de campos si el usuario cambió de pestaña
   const draftKey = 'draft_add_animal';
   try {
     const saved = localStorage.getItem(draftKey);
@@ -359,8 +358,7 @@ export async function renderAddForm(container) {
       // Upload additional photos
       const extraFiles = selectedExtraFiles;
       for (const file of extraFiles) {
-        const url = await uploadPhoto(file, animal.id);
-        await addPhoto(animal.id, url);
+        await addPhoto(file, animal.id);
       }
 
             localStorage.removeItem('draft_add_animal');
@@ -538,8 +536,7 @@ export async function renderAnimalDetail(container, id) {
       showLoading();
       try {
         for (const file of files) {
-          const url = await uploadPhoto(file, id);
-          await addPhoto(id, url);
+          await addPhoto(file, id);
         }
         showToast('Fotos agregadas y optimizadas', 'success');
         renderAnimalDetail(container, id);
@@ -679,7 +676,7 @@ export async function renderEditForm(container, id) {
             </div>
             <div class="form-group">
               <label class="form-label">Valor de compra ($)</label>
-              <input type="number" step="0.01" class="form-input" name="valor_compra" value="${animal.valor_compra ?? ''}" />
+              <input type="text" inputmode="numeric" class="form-input" name="valor_compra" value="${animal.valor_compra != null ? Math.round(animal.valor_compra) : ''}" />
             </div>
           </div>
 
@@ -716,53 +713,32 @@ export async function renderEditForm(container, id) {
       </form>
     `;
 
-    // Auto-set sexo on tipo change
-    const tipoSelect =   // Restaurar borrador de campos si el usuario cambió de pestaña
-  const draftKey = 'draft_add_animal';
-  try {
-    const saved = localStorage.getItem(draftKey);
-    if (saved) {
-      const d = JSON.parse(saved);
-      const f = container.querySelector('#add-animal-form');
-      if (f) {
-        if (d.numero) f.numero.value = d.numero;
-        if (d.nombre) f.nombre.value = d.nombre;
-        if (d.tipo) f.tipo.value = d.tipo;
-        if (d.sexo) f.sexo.value = d.sexo;
-        if (d.peso_entrada) f.peso_entrada.value = d.peso_entrada;
-        if (d.valor_compra) f.valor_compra.value = d.valor_compra;
-        if (d.fecha_ingreso) f.fecha_ingreso.value = d.fecha_ingreso;
-        if (d.raza) f.raza.value = d.raza;
-        if (d.color_pelaje) f.color_pelaje.value = d.color_pelaje;
-        if (d.hierro) f.hierro.value = d.hierro;
-        if (d.observaciones) f.observaciones.value = d.observaciones;
-      }
-    }
-  } catch (err) {}
-
-  // Guardar en tiempo real lo que el usuario escribe
-    const formElement = container.querySelector('#add-animal-form');
-  setupMoneyInput(formElement.valor_compra);
-  formElement.addEventListener('input', () => {
+    // Borrador de edición (por animal) por si el usuario cambia de pestaña
+    const draftEditKey = `draft_edit_animal_${id}`;
+    const formElement = container.querySelector('#edit-animal-form');
+    const draftFields = ['numero', 'nombre', 'tipo', 'sexo', 'peso_entrada', 'valor_compra',
+      'fecha_ingreso', 'raza', 'color_pelaje', 'hierro', 'observaciones'];
     try {
-      const draft = {
-        numero: formElement.numero.value,
-        nombre: formElement.nombre.value,
-        tipo: formElement.tipo.value,
-        sexo: formElement.sexo.value,
-        peso_entrada: formElement.peso_entrada.value,
-        valor_compra: formElement.valor_compra.value,
-        fecha_ingreso: formElement.fecha_ingreso.value,
-        raza: formElement.raza.value,
-        color_pelaje: formElement.color_pelaje.value,
-        hierro: formElement.hierro.value,
-        observaciones: formElement.observaciones.value,
-      };
-      localStorage.setItem(draftKey, JSON.stringify(draft));
-    } catch (e) {}
-  });
+      const saved = localStorage.getItem(draftEditKey);
+      if (saved) {
+        const d = JSON.parse(saved);
+        for (const k of draftFields) {
+          if (d[k] != null && d[k] !== '') formElement[k].value = d[k];
+        }
+      }
+    } catch (err) {}
 
-  const tipoSelect = container.querySelector('[name="tipo"]');
+    setupMoneyInput(formElement.valor_compra);
+    formElement.addEventListener('input', () => {
+      try {
+        const draft = {};
+        for (const k of draftFields) draft[k] = formElement[k].value;
+        localStorage.setItem(draftEditKey, JSON.stringify(draft));
+      } catch (e) {}
+    });
+
+    // Auto-set sexo on tipo change
+    const tipoSelect = container.querySelector('[name="tipo"]');
     const sexoSelect = container.querySelector('[name="sexo"]');
     tipoSelect.addEventListener('change', () => {
       const sexoMap = { vaca: 'femenino', toro: 'masculino', novilla: 'femenino', ternero: 'masculino', ternera: 'femenino' };
