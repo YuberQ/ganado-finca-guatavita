@@ -17,7 +17,7 @@ export async function renderDashboard(container) {
         container.innerHTML = `
       <div class="farm-hero-banner">
                         <div class="farm-hero-frame">
-          <img src="assets/logo-angel-maria.jpg" alt="Logo Finca Angel Maria" style="width:130px;height:130px;object-fit:cover;border:3px solid #ffffff;margin:0 auto 14px auto;display:block;" />
+          <img src="assets/logo-angel-maria.png" alt="Logo Finca Angel Maria" style="width:130px;height:130px;object-fit:cover;filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));margin:0 auto 14px auto;display:block;" />
           <h1 class="farm-hero-title">FINCA ANGEL MARIA</h1>
           <div class="farm-hero-divider"></div>
           <p class="farm-hero-subtitle">GANADERÍA TRADICIONAL &bull; CONTROL DE INVENTARIO</p>
