@@ -6,11 +6,9 @@
   <title>Acceso — Finca Angel Maria</title>
   <style>
     :root {
-      --farm-leather-dark: #2c1c14;
       --farm-pine-dark: #16281a;
       --farm-cream: #f5f0e6;
       --font-display: 'Impact', 'Oswald', 'Franklin Gothic Medium', 'Arial Black', sans-serif;
-      --font-serif: 'Baskerville', 'Georgia', serif;
       --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
     }
 
@@ -33,59 +31,33 @@
 
     .login-wrapper {
       width: 100%;
-      max-width: 460px;
-    }
-
-    .login-banner-frame {
-      border: 3px solid #ffffff;
-      padding: 24px 20px;
-      text-align: center;
-      margin-bottom: 24px;
-      background-color: rgba(22, 40, 26, 0.55);
-      backdrop-filter: blur(3px);
+      max-width: 440px;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    .hierro-brand-icon {
-      width: 68px;
-      height: 68px;
-      color: #ffffff;
-      margin-bottom: 12px;
+    /* Logo insignia principal */
+    .brand-logo-container {
+      margin-bottom: 20px;
+      text-align: center;
     }
 
-    .login-banner-title {
-      font-family: var(--font-display);
-      font-size: 32px;
-      font-weight: 900;
-      letter-spacing: 5px;
-      color: #ffffff;
-      text-transform: uppercase;
-      margin: 0;
-      line-height: 1.1;
-    }
-
-    .login-banner-divider {
-      height: 2px;
-      background-color: #ffffff;
-      margin: 10px 0;
-      width: 100%;
-    }
-
-    .login-banner-subtitle {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 14px;
-      letter-spacing: 1px;
-      color: #f5f0e6;
-      margin: 0;
+    .brand-logo-img {
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      border: 3px solid #ffffff;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      display: block;
+      margin: 0 auto;
     }
 
     .login-card {
+      width: 100%;
       background: #ffffff;
       border: 2px solid #211a16;
-      box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
+      box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.35);
     }
 
     .login-header {
@@ -100,8 +72,9 @@
       font-family: var(--font-display);
       font-size: 18px;
       font-weight: 900;
-      letter-spacing: 2px;
+      letter-spacing: 2.5px;
       text-transform: uppercase;
+      margin: 0;
     }
 
     .login-body {
@@ -154,7 +127,7 @@
       text-transform: uppercase;
       letter-spacing: 2px;
       transition: background-color 0.15s ease;
-      margin-top: 10px;
+      margin-top: 8px;
     }
 
     .login-btn:hover {
@@ -181,49 +154,13 @@
     .login-error.visible {
       display: block;
     }
-
-    .login-footer {
-      text-align: center;
-      padding: 16px 20px;
-      border-top: 1px solid #e0d8cb;
-      background-color: #f7f3ec;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    .login-footer svg {
-      width: 24px;
-      height: 24px;
-      color: #4a2e1d;
-    }
-
-    .login-footer__text {
-      font-family: var(--font-sans);
-      font-size: 11px;
-      font-weight: 800;
-      color: #4a2e1d;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-    }
   </style>
 </head>
 <body>
   <div class="login-wrapper">
-    <div class="login-banner-frame">
-      <!-- Logo Hierro HQ -->
-      <svg class="hierro-brand-icon" viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="square" />
-        <line x1="28" y1="28" x2="28" y2="72" stroke="currentColor" stroke-width="5" stroke-linecap="square" />
-        <line x1="46" y1="28" x2="46" y2="72" stroke="currentColor" stroke-width="5" stroke-linecap="square" />
-        <line x1="28" y1="50" x2="46" y2="50" stroke="currentColor" stroke-width="5" stroke-linecap="square" />
-        <path d="M 68 32 C 60 32 55 40 55 50 C 55 60 60 68 68 68 C 76 68 81 60 81 50 C 81 40 76 32 68 32 Z" fill="none" stroke="currentColor" stroke-width="4.8" />
-        <line x1="68" y1="60" x2="80" y2="74" stroke="currentColor" stroke-width="5" stroke-linecap="square" />
-      </svg>
-      <h1 class="login-banner-title">FINCA ANGEL MARIA</h1>
-      <div class="login-banner-divider"></div>
-      <p class="login-banner-subtitle">Ganadería Tradicional • Hierro HQ</p>
+    <!-- Logotipo Oficial HQ - Finca Angel Maria -->
+    <div class="brand-logo-container">
+      <img src="assets/logo-angel-maria.jpg" alt="Finca Angel Maria - HQ" class="brand-logo-img" />
     </div>
 
     <div class="login-card">
@@ -262,21 +199,9 @@
           </div>
 
           <button class="login-btn" type="submit" id="login-btn">
-            Ingresar al Sistema
+            Ingresar
           </button>
         </form>
-      </div>
-
-      <div class="login-footer">
-        <svg viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="5" />
-          <line x1="28" y1="28" x2="28" y2="72" stroke="currentColor" stroke-width="5.5" />
-          <line x1="46" y1="28" x2="46" y2="72" stroke="currentColor" stroke-width="5.5" />
-          <line x1="28" y1="50" x2="46" y2="50" stroke="currentColor" stroke-width="5.5" />
-          <path d="M 68 32 C 60 32 55 40 55 50 C 55 60 60 68 68 68 C 76 68 81 60 81 50 C 81 40 76 32 68 32 Z" fill="none" stroke="currentColor" stroke-width="5" />
-          <line x1="68" y1="60" x2="80" y2="74" stroke="currentColor" stroke-width="5.5" />
-        </svg>
-        <span class="login-footer__text">HIERRO DE MARCAR HQ</span>
       </div>
     </div>
   </div>
@@ -310,7 +235,7 @@
         errorDiv.textContent = err.message || 'Error al autenticar';
         errorDiv.classList.add('visible');
         btn.disabled = false;
-        btn.textContent = 'Ingresar al Sistema';
+        btn.textContent = 'Ingresar';
       }
     });
   </script>
