@@ -1,7 +1,5 @@
 /* ==========================================================
-   LAYOUT — Estilo FARMBODY / Artesanal Rústico Premium
-   Barra superior limpia, menú de cuero/madera oscura,
-   y marcos de diseño rústico.
+   LAYOUT — menú lateral, barra superior y área de contenido
    ========================================================== */
 
 *,
@@ -22,34 +20,48 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ── Encabezado Superior (Estilo Header Farmbody) ── */
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--potrero-oscuro);
+  line-height: 1.25;
+}
+
+.page-content > h2 {
+  font-size: var(--font-size-h2);
+  margin-bottom: var(--space-4);
+}
+
+/* ── Barra superior ── */
 .top-bar {
   position: sticky;
   top: 0;
   z-index: 100;
   height: var(--topbar-height);
-  background-color: #ffffff;
-  border-bottom: 2px solid #211a16;
+  background-color: rgba(246, 241, 231, 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: var(--borde);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 var(--space-5);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
 }
 
 .top-bar__left {
   display: flex;
   align-items: center;
+  min-width: 0;
 }
 
 .top-bar__hamburger {
   display: none;
-  background: none;
-  border: 1px solid #211a16;
-  padding: 6px;
+  background: var(--papel);
+  border: var(--borde);
+  border-radius: var(--radio-sm);
+  padding: 7px;
   cursor: pointer;
-  margin-right: var(--space-4);
-  color: #211a16;
+  margin-right: var(--space-3);
+  color: var(--tinta);
 }
 
 .top-bar__hamburger svg {
@@ -59,24 +71,22 @@ body {
 }
 
 .top-bar__title {
-  font-family: var(--font-display);
+  font-family: var(--font-serif);
   font-size: 21px;
-  font-weight: 900;
-  letter-spacing: 2.5px;
-  color: #211a16;
-  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--potrero-oscuro);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .top-bar__meta {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--farm-leather-light);
+  font-size: var(--font-size-sm);
+  color: var(--tinta-suave);
+  white-space: nowrap;
 }
 
-/* ── Menú Lateral (Tono Cuero Envejecido & Roble) ── */
+/* ── Menú lateral ── */
 .sidebar {
   position: fixed;
   top: 0;
@@ -84,7 +94,7 @@ body {
   bottom: 0;
   width: var(--sidebar-width);
   background-color: var(--bg-sidebar);
-  border-right: 2px solid #140d0a;
+  background-image: radial-gradient(ellipse at 0% 100%, rgba(224, 168, 46, 0.14), transparent 60%);
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -92,52 +102,42 @@ body {
 }
 
 .sidebar-header {
-  padding: 24px 20px 20px 20px;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.12);
-  text-align: center;
+  padding: 26px 22px 18px;
+  text-align: left;
 }
 
-.sidebar-badge {
-  display: inline-block;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  padding: 3px 12px;
-  font-family: var(--font-sans);
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--farm-parchment);
-  margin-bottom: 8px;
+.sidebar-header img {
+  width: 92px !important;
+  height: 92px !important;
+  margin: 0 0 10px 0 !important;
+  filter: invert(1) !important;
+  mix-blend-mode: screen;
 }
 
 .sidebar-logo {
   display: block;
   text-decoration: none;
-  color: #ffffff;
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 900;
-  letter-spacing: 3px;
-  line-height: 1.1;
-  text-transform: uppercase;
+  color: #fbf6ec;
+  font-family: var(--font-serif);
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .sidebar-logo span {
   display: block;
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 13px;
+  font-family: var(--font-sans);
+  font-size: 14px;
   font-weight: 400;
-  color: #c9b9a6;
-  margin-top: 5px;
-  letter-spacing: 0.5px;
-  text-transform: none;
+  color: #b9c6b4;
+  margin-top: 2px;
 }
 
 .sidebar-nav {
-  padding: var(--space-4) 0;
+  padding: var(--space-2) var(--space-3) var(--space-4);
   display: flex;
   flex-direction: column;
+  gap: 2px;
   flex: 1;
 }
 
@@ -145,54 +145,51 @@ body {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  padding: 13px 20px;
-  color: #d1c7bc;
+  padding: 10px 12px;
+  color: #d6dfd2;
   text-decoration: none;
-  font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  border-left: 4px solid transparent;
-  transition: all 0.15s ease;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: var(--radio-sm);
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .sidebar-link:hover {
-  background-color: rgba(255, 255, 255, 0.06);
+  background-color: rgba(255, 255, 255, 0.07);
   color: #ffffff;
 }
 
 .sidebar-link.active {
-  background-color: #1c120c;
+  background-color: rgba(224, 168, 46, 0.16);
   color: #ffffff;
-  border-left-color: #c49a6c;
+  box-shadow: inset 3px 0 0 var(--maiz);
 }
 
 .sidebar-link svg {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   fill: currentColor;
-  opacity: 0.85;
+  opacity: 0.8;
+  flex-shrink: 0;
 }
 
 .sidebar-divider {
   height: 1px;
   background-color: rgba(255, 255, 255, 0.1);
-  margin: var(--space-3) 20px;
+  margin: var(--space-2) 12px;
 }
 
 .sidebar-link--logout {
   margin-top: auto;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  color: #d99a9a;
+  color: #e8b9b1;
 }
 
 .sidebar-link--logout:hover {
-  background-color: rgba(140, 30, 30, 0.3);
+  background-color: rgba(163, 58, 47, 0.3);
   color: #ffffff;
 }
 
-/* ── Área de Contenido Principal ── */
+/* ── Contenido ── */
 .main-content {
   margin-left: var(--sidebar-width);
   min-height: 100vh;
@@ -203,7 +200,7 @@ body {
 .page-content {
   padding: var(--space-5);
   flex: 1;
-  max-width: 1350px;
+  max-width: 1280px;
   width: 100%;
 }
 

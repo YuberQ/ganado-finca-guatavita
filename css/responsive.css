@@ -13,6 +13,26 @@
     transform: translateX(0);
   }
 
+  body.sidebar-open .sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(31, 27, 23, 0.45);
+    z-index: 900;
+  }
+
+  .top-bar {
+    padding: 0 var(--space-4);
+  }
+
+  .top-bar__meta {
+    display: none;
+  }
+
+  .saludo-finca__titulo {
+    font-size: 27px;
+  }
+
   .main-content {
     margin-left: 0;
   }
@@ -36,7 +56,21 @@
 
   /* Stats */
   .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2);
+  }
+
+  .stat-card {
+    padding: 12px 12px 12px 14px;
+  }
+
+  .stat-card__value {
+    font-size: 28px;
+  }
+
+  .stat-card__label {
+    font-size: 13px;
+    line-height: 1.25;
   }
 
   /* Animal cards */
@@ -52,13 +86,15 @@
 
   /* Filter bar */
   .filter-bar {
-    flex-direction: column;
-    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 6px;
   }
 
   .search-input {
-    min-width: unset;
+    order: -1;
+    min-width: 0;
     width: 100%;
+    margin: 0 0 4px 0;
   }
 
   /* Tables */

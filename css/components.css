@@ -1,430 +1,372 @@
 ﻿/* ==========================================================
-   COMPONENTS — Estilo FARMBODY
-   Marcos dobles artesanales, tipografía con fuerza rústica,
-   y estética de rancho tradicional de alta gama.
+   COMPONENTS — botones, tarjetas, formularios, tablas, modales
    ========================================================== */
 
-/* ── BOTONES DE MARCA RÚSTICA ── */
+/* ── Botones ── */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  padding: 10px 20px;
+  padding: 9px 18px;
   font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
+  font-size: 15px;
+  font-weight: 600;
   text-decoration: none;
-  border: 2px solid #211a16;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio-sm);
   cursor: pointer;
-  background-color: #ffffff;
-  color: #211a16;
-  border-radius: 0;
-  transition: all 0.15s ease;
+  background-color: var(--papel);
+  color: var(--tinta);
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.05s ease;
+}
+
+.btn:hover:not(:disabled) {
+  border-color: #cdbfa6;
+  background-color: #fff;
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
 }
 
 .btn:disabled {
-  opacity: 0.4;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
 .btn-primary {
-  background-color: var(--farm-pine-dark);
+  background-color: var(--potrero);
+  border-color: var(--potrero);
   color: #ffffff;
-  border-color: #0d1a10;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: #253f2a;
+  background-color: var(--potrero-oscuro);
+  border-color: var(--potrero-oscuro);
 }
 
 .btn-secondary {
-  background-color: var(--farm-leather-warm);
-  color: #ffffff;
-  border-color: #26160d;
+  background-color: var(--tierra-claro);
+  border-color: #e2cfb4;
+  color: #5e3d1f;
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background-color: #5c3924;
+  background-color: #ecdcc6;
+  border-color: #d6bd9a;
 }
 
 .btn-danger {
   background-color: var(--color-danger);
+  border-color: var(--color-danger);
   color: #ffffff;
-  border-color: #4f1010;
 }
 
 .btn-danger:hover:not(:disabled) {
-  background-color: #5c1414;
+  background-color: #872f26;
 }
 
 .btn-sm {
   padding: 6px 12px;
-  font-size: 11px;
-  letter-spacing: 1px;
+  font-size: 14px;
+}
+
+.btn-lg {
+  padding: 12px 24px;
+  font-size: 16px;
 }
 
 .btn-icon {
   padding: 6px;
-  min-width: 32px;
-  min-height: 32px;
+  min-width: 34px;
+  min-height: 34px;
 }
 
-/* ── BANNER HERO FARMBODY (Cuadro de marco blanco sobre fondo campo) ── */
-.farm-hero-banner {
-  background: linear-gradient(rgba(33, 26, 22, 0.45), rgba(33, 26, 22, 0.45)),
-              url('https://images.unsplash.com/photo-1500595046743-cd271d694d30?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
-  border: 2px solid #211a16;
-  padding: 45px 25px;
-  text-align: center;
-  color: #ffffff;
+/* ── Saludo del inicio ── */
+.saludo-finca {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
   margin-bottom: var(--space-5);
-  position: relative;
 }
 
-.farm-hero-frame {
-  display: inline-block;
-  border: 3px solid #ffffff;
-  padding: 22px 40px;
-  max-width: 750px;
-  width: 100%;
-  background-color: rgba(22, 40, 26, 0.4);
-  backdrop-filter: blur(2px);
+.saludo-finca__fecha {
+  font-size: var(--font-size-sm);
+  color: var(--tierra);
+  font-weight: 600;
+  margin-bottom: 2px;
 }
 
-.farm-hero-title {
-  font-family: var(--font-display);
-  font-size: 36px;
-  font-weight: 900;
-  letter-spacing: 5px;
-  text-transform: uppercase;
-  margin: 0 0 10px 0;
-  line-height: 1.1;
-  color: #ffffff;
+.saludo-finca__titulo {
+  font-size: var(--font-size-h1);
 }
 
-.farm-hero-divider {
-  height: 2px;
-  background-color: #ffffff;
-  width: 100%;
-  margin: 10px 0;
+.saludo-finca__resumen {
+  margin-top: 6px;
+  color: var(--tinta-suave);
+  font-size: 17px;
+  max-width: 60ch;
 }
 
-.farm-hero-subtitle {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 16px;
-  letter-spacing: 1px;
-  color: #f5f0e6;
-  margin: 0;
-}
-
-/* ── TARJETAS Y CONTENEDORES ── */
+/* ── Tarjetas ── */
 .card {
   background-color: var(--bg-card);
-  border: 2px solid #211a16;
-  border-radius: 0;
+  border: var(--borde);
+  border-radius: var(--radio);
   margin-bottom: var(--space-5);
-  box-shadow: 4px 4px 0px rgba(33, 26, 22, 0.15);
+  box-shadow: var(--sombra);
 }
 
 .card-header {
   padding: 16px 22px;
-  border-bottom: 2px solid #211a16;
-  background-color: var(--farm-cream-light);
+  border-bottom: var(--borde);
 }
 
 .card-header h2 {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 900;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #211a16;
+  font-size: 21px;
 }
 
 .card-body {
   padding: var(--space-5);
 }
 
-/* ── REPORTE DE RESUMEN (ESTILO TABLÓN DE FINCA) ── */
+/* ── Conteos ── */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 0;
-  border: 2px solid #211a16;
-  background-color: #ffffff;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: var(--space-3);
   margin-bottom: var(--space-5);
-  box-shadow: 4px 4px 0px rgba(33, 26, 22, 0.15);
 }
 
 .stat-card {
-  padding: 18px 22px;
-  border-right: 1px solid var(--farm-border-rule);
+  padding: 16px 18px;
+  background: var(--papel);
+  border: var(--borde);
+  border-radius: var(--radio);
   display: flex;
   flex-direction: column;
+  box-shadow: var(--sombra);
+  position: relative;
+  overflow: hidden;
 }
 
-.stat-card:last-child {
-  border-right: none;
+.stat-card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--potrero);
 }
+
+.stat-card:nth-child(2)::after { background: var(--tierra); }
+.stat-card:nth-child(3)::after { background: var(--maiz); }
 
 .stat-card__label {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--farm-leather-light);
-  margin-bottom: 6px;
+  font-size: 15px;
+  color: var(--tinta-suave);
+  margin-top: 2px;
 }
 
 .stat-card__value {
-  font-family: var(--font-display);
-  font-size: 38px;
-  font-weight: 900;
-  line-height: 1;
-  color: #211a16;
+  font-family: var(--font-serif);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--potrero-oscuro);
 }
 
-/* ── FILTROS Y BÚSQUEDA ── */
+/* ── Filtros y búsqueda ── */
 .filter-bar {
   display: flex;
   align-items: center;
   gap: var(--space-2);
   margin-bottom: var(--space-4);
   flex-wrap: wrap;
-  padding-bottom: var(--space-3);
-  border-bottom: 2px solid #211a16;
 }
 
 .filter-btn {
-  background-color: var(--farm-cream-warm);
-  border: 1px solid #211a16;
-  font-family: var(--font-sans);
-  font-weight: 800;
-  letter-spacing: 1px;
+  border-radius: 999px;
+  background-color: transparent;
+  border-color: #d8ccb6;
 }
 
 .filter-btn.active {
-  background-color: var(--farm-pine-dark);
+  background-color: var(--potrero);
   color: #ffffff;
-  border-color: var(--farm-pine-dark);
+  border-color: var(--potrero);
 }
 
 .search-input {
   margin-left: auto;
-  padding: 8px 14px;
+  padding: 9px 14px;
   font-family: var(--font-sans);
-  font-size: 13px;
-  border: 1px solid #211a16;
-  background-color: #ffffff;
+  font-size: 15px;
+  border: var(--borde);
+  border-radius: 999px;
+  background-color: var(--papel);
   min-width: 260px;
-  border-radius: 0;
 }
 
 .search-input:focus {
   outline: none;
-  border-color: var(--farm-pine-dark);
-  box-shadow: inset 0 0 0 1px var(--farm-pine-dark);
+  border-color: var(--potrero);
+  box-shadow: 0 0 0 3px rgba(47, 82, 51, 0.15);
 }
 
-/* ── TARJETAS DE ANIMALES (ESTILO CATÁLOGO FARMSTEAD) ── */
+/* ── Tarjetas de animales ── */
 .animal-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: var(--space-4);
 }
 
 .animal-card {
-  background-color: #ffffff;
-  border: 2px solid #211a16;
+  background-color: var(--papel);
+  border: var(--borde);
+  border-radius: var(--radio);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   text-decoration: none;
   color: inherit;
-  box-shadow: 3px 3px 0px rgba(33, 26, 22, 0.12);
+  box-shadow: var(--sombra);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .animal-card:hover {
   transform: translateY(-2px);
-  box-shadow: 5px 5px 0px rgba(33, 26, 22, 0.2);
-  border-color: var(--farm-pine-dark);
+  box-shadow: var(--sombra-alta);
 }
 
 .animal-card__photo {
   width: 100%;
-  height: 190px;
+  height: 180px;
   object-fit: cover;
-  border-bottom: 2px solid #211a16;
-  background-color: #e8e2d5;
+  background-color: var(--tierra-claro);
 }
 
 .animal-card__photo--placeholder {
   width: 100%;
-  height: 190px;
-  border-bottom: 2px solid #211a16;
-  background-color: var(--farm-parchment);
+  height: 180px;
+  background-color: var(--tierra-claro);
+  /* Hierro HQ en tono cuero claro */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='%23c9ad88' stroke-width='5'%3E%3Ccircle cx='50' cy='50' r='44'/%3E%3Cpath d='M28 28v44M46 28v44M28 50h18M68 32c-8 0-13 8-13 18s5 18 13 18 13-8 13-18-5-18-13-18zM68 60l12 14'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center 38%;
+  background-size: 64px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  font-family: var(--font-sans);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--farm-leather-warm);
-  font-weight: 800;
+  padding-bottom: 22px;
+  font-size: 14px;
+  color: #a08466;
 }
 
 .animal-card__info {
-  padding: 14px 16px;
+  padding: 12px 16px 14px;
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
 .animal-card__number {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-  color: var(--farm-leather-warm);
-  text-transform: uppercase;
-  margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--tierra);
 }
 
 .animal-card__name {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 900;
-  letter-spacing: 1.5px;
-  color: #211a16;
-  line-height: 1.15;
+  font-family: var(--font-serif);
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--potrero-oscuro);
+  line-height: 1.2;
   margin-bottom: var(--space-2);
-  text-transform: uppercase;
 }
 
 .animal-card__meta {
   margin-top: auto;
-  padding-top: var(--space-2);
-  border-top: 1px solid var(--farm-border-rule);
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-/* ── BADGES RÚSTICOS TIPO SELLO ── */
+/* ── Etiquetas ── */
 .badge {
   display: inline-block;
-  padding: 3px 8px;
+  padding: 2px 10px;
   font-family: var(--font-sans);
-  font-size: 10px;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-  border: 1px solid;
-  border-radius: 0;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 999px;
+  text-transform: capitalize;
+  vertical-align: middle;
 }
 
-.badge-vaca {
-  background-color: #edf5ee;
-  color: var(--farm-pine-dark);
-  border-color: var(--farm-pine-deep);
-}
+.badge-vaca     { background-color: var(--potrero-claro); color: var(--potrero-oscuro); }
+.badge-toro     { background-color: var(--tierra-claro); color: #5e3d1f; }
+.badge-novilla  { background-color: var(--maiz-claro); color: #6d4f0f; }
+.badge-ternero,
+.badge-ternera  { background-color: #f1ece2; color: #5c5246; }
+.badge-vendido  { background-color: #ebe8e3; color: #4c4741; }
+.badge-perdido,
+.badge-eliminado { background-color: #f8e3e0; color: var(--color-danger); }
 
-.badge-toro {
-  background-color: #f7efe8;
-  color: var(--farm-leather-warm);
-  border-color: var(--farm-leather-warm);
-}
-
-.badge-novilla {
-  background-color: #fdf9f0;
-  color: #694a12;
-  border-color: #8c6319;
-}
-
-.badge-ternero, .badge-ternera {
-  background-color: #fdf9f0;
-  color: #573e0e;
-  border-color: #7a5815;
-}
-
-.badge-vendido {
-  background-color: #ececec;
-  color: #4a4a4a;
-  border-color: #7a7a7a;
-}
-
-.badge-perdido, .badge-eliminado {
-  background-color: #fae8e8;
-  color: var(--color-danger);
-  border-color: var(--color-danger);
-}
-
-/* ── TABLAS DE LIBRO DE REGISTRO RÚSTICO ── */
+/* ── Tablas ── */
 .table-wrapper {
   overflow-x: auto;
-  border: 2px solid #211a16;
-  background-color: #ffffff;
-  box-shadow: 3px 3px 0px rgba(33, 26, 22, 0.12);
+  border: var(--borde);
+  border-radius: var(--radio);
+  background-color: var(--papel);
+  box-shadow: var(--sombra);
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
-  font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: 15px;
   text-align: left;
 }
 
 .table th {
-  background-color: var(--farm-cream-light);
-  color: #211a16;
-  font-weight: 900;
-  text-transform: uppercase;
-  font-size: 11px;
-  letter-spacing: 1.2px;
-  padding: 12px 14px;
-  border-bottom: 2px solid #211a16;
-  border-right: 1px solid var(--farm-border-rule);
-}
-
-.table th:last-child {
-  border-right: none;
+  color: var(--tinta-suave);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 11px 14px;
+  border-bottom: var(--borde);
+  background-color: #fbf7ef;
+  white-space: nowrap;
 }
 
 .table td {
   padding: 10px 14px;
-  border-bottom: 1px solid var(--farm-border-rule);
-  border-right: 1px solid var(--farm-border-rule);
-  color: #2b2420;
+  border-bottom: 1px solid #efe7d8;
+  color: var(--tinta);
 }
 
-.table td:last-child {
-  border-right: none;
+.table tr:last-child td {
+  border-bottom: none;
 }
 
-.table tr:hover {
-  background-color: #f7f3ec;
+.table tbody tr:hover {
+  background-color: #fbf7ef;
 }
 
-/* ── FORMULARIOS ── */
+/* ── Formularios ── */
 .form-group {
   margin-bottom: var(--space-4);
 }
 
 .form-label {
   display: block;
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #211a16;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--tinta);
   margin-bottom: 6px;
 }
 
@@ -432,17 +374,18 @@
   width: 100%;
   padding: 10px 12px;
   font-family: var(--font-sans);
-  font-size: 14px;
-  color: #211a16;
-  background-color: #ffffff;
-  border: 1px solid #211a16;
-  border-radius: 0;
+  font-size: 16px;
+  color: var(--tinta);
+  background-color: var(--papel);
+  border: var(--borde);
+  border-radius: var(--radio-sm);
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 
 .form-input:focus, .form-select:focus, .form-textarea:focus {
   outline: none;
-  border-color: var(--farm-pine-dark);
-  box-shadow: inset 0 0 0 1px var(--farm-pine-dark);
+  border-color: var(--potrero);
+  box-shadow: 0 0 0 3px rgba(47, 82, 51, 0.15);
 }
 
 .form-row {
@@ -451,11 +394,17 @@
   gap: var(--space-4);
 }
 
-/* ── MODALES ── */
+/* Cajas de color que algunas vistas arman con estilos en línea */
+[style*="--brown-100"] {
+  border-radius: var(--radio) !important;
+  border-width: 1px !important;
+}
+
+/* ── Modales ── */
 .modal {
   position: fixed;
   inset: 0;
-  background-color: rgba(33, 26, 22, 0.7);
+  background-color: rgba(31, 27, 23, 0.55);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -464,57 +413,61 @@
 }
 
 .modal-content {
-  background-color: #ffffff;
-  border: 3px solid #211a16;
-  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.25);
+  background-color: var(--papel);
+  border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
   width: 100%;
-  max-width: 620px;
+  max-width: 600px;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
-  border-radius: 0;
+  overflow: hidden;
 }
 
 .modal-header {
-  padding: 16px 22px;
-  background-color: var(--farm-pine-dark);
-  color: #ffffff;
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 900;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  padding: 18px 22px 10px;
+  font-family: var(--font-serif);
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--potrero-oscuro);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 2px solid #000000;
+  gap: var(--space-3);
 }
 
 .modal-header .modal-close {
   background: none;
   border: none;
-  color: #ffffff;
-  font-size: 26px;
+  color: var(--tinta-suave);
+  font-size: 28px;
   cursor: pointer;
   line-height: 1;
+  border-radius: var(--radio-sm);
+  width: 36px;
+  height: 36px;
+}
+
+.modal-header .modal-close:hover {
+  background: var(--crema);
 }
 
 .modal-body {
-  padding: 22px;
+  padding: 8px 22px 20px;
   overflow-y: auto;
   flex: 1;
 }
 
 .modal-footer {
   padding: 14px 22px;
-  border-top: 1px solid var(--farm-border-rule);
+  border-top: var(--borde);
   display: flex;
   justify-content: flex-end;
   gap: var(--space-2);
-  background-color: var(--farm-cream-light);
+  background-color: #fbf7ef;
 }
 
-/* ── NOTIFICACIONES TOAST ── */
+/* ── Avisos flotantes ── */
 .toast-container {
   position: fixed;
   bottom: var(--space-5);
@@ -526,43 +479,34 @@
 }
 
 .toast {
-  padding: 12px 18px;
-  font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-  border: 2px solid #211a16;
-  border-radius: 0;
-  min-width: 270px;
-  box-shadow: 3px 3px 0px rgba(0,0,0,0.15);
+  padding: 12px 16px 12px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: var(--radio);
+  min-width: 260px;
+  max-width: 380px;
+  box-shadow: var(--sombra-alta);
+  border-left: 5px solid;
+  background: var(--papel);
 }
 
-.toast-success {
-  background-color: #ebf5ee;
-  color: #123e1b;
-  border-color: var(--farm-pine-dark);
-}
+.toast-success { color: var(--potrero-oscuro); border-color: var(--potrero); }
+.toast-error   { color: #6e1f17; border-color: var(--color-danger); background: #fdf3f1; }
+.toast-info    { color: #5c4310; border-color: var(--maiz); background: #fffaf0; }
 
-.toast-error {
-  background-color: #fbeded;
-  color: #6d1212;
-  border-color: var(--color-danger);
-}
-
-.toast-info {
-  background-color: #edf3f8;
-  color: #143553;
-  border-color: #1d4b75;
-}
-
-/* ── DETALLE DEL ANIMAL ── */
+/* ── Ficha del animal ── */
 .detail-section {
-  background-color: #ffffff;
-  border: 2px solid #211a16;
-  padding: 24px;
+  background-color: var(--papel);
+  border: var(--borde);
+  border-radius: var(--radio);
+  padding: 22px;
   margin-bottom: var(--space-5);
-  box-shadow: 4px 4px 0px rgba(33, 26, 22, 0.12);
+  box-shadow: var(--sombra);
+}
+
+.detail-section h3 {
+  font-size: 19px;
+  margin-bottom: var(--space-3);
 }
 
 .detail-header {
@@ -582,56 +526,47 @@
   width: 100%;
   height: 240px;
   object-fit: cover;
-  border: 2px solid #211a16;
+  border-radius: var(--radio);
 }
 
 .detail-profile-placeholder {
   width: 100%;
   height: 240px;
-  border: 2px dashed #6b6159;
+  border-radius: var(--radio);
+  border: 2px dashed #d8c7ac;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--farm-parchment);
-  font-family: var(--font-sans);
-  font-size: 11px;
-  text-transform: uppercase;
-  color: #6b6159;
-  font-weight: 800;
-  letter-spacing: 1.5px;
+  background-color: var(--tierra-claro);
+  font-size: 15px;
+  color: #a08466;
 }
 
 .history-icon {
   position: absolute;
   top: 8px;
   right: 8px;
-  background-color: #ffffff;
-  border: 2px solid #211a16;
-  padding: 4px 8px;
-  font-family: var(--font-sans);
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  background-color: rgba(255, 253, 248, 0.94);
+  border: var(--borde);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
 }
 
 .detail-info h2 {
-  font-family: var(--font-display);
-  font-size: 28px;
-  font-weight: 900;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #211a16;
+  font-size: 30px;
   margin-bottom: 12px;
-  padding-bottom: 8px;
-  border-bottom: 2px solid #211a16;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .detail-info p {
-  font-size: 14px;
-  margin-bottom: 8px;
-  color: #2b2420;
+  font-size: 16px;
+  margin-bottom: 6px;
 }
 
 .photo-gallery {
@@ -642,22 +577,22 @@
 }
 
 .gallery-thumb {
-  width: 85px;
-  height: 85px;
+  width: 88px;
+  height: 88px;
   object-fit: cover;
-  border: 2px solid #211a16;
+  border-radius: var(--radio-sm);
   cursor: pointer;
+  transition: transform 0.15s;
 }
 
 .gallery-thumb:hover {
-  border-color: var(--farm-pine-dark);
+  transform: scale(1.04);
 }
 
 .empty-state {
-  padding: var(--space-5);
+  padding: var(--space-6) var(--space-5);
   text-align: center;
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 14px;
+  font-size: 16px;
   color: var(--text-muted);
+  grid-column: 1 / -1;
 }
