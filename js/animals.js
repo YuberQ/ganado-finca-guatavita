@@ -1,6 +1,6 @@
 ﻿import { getAnimales, getAnimal, createAnimal, updateAnimal, getCrias, getCriaActual, getPesajes, addPesaje, venderAnimal, marcarPerdido } from './db.js';
 import { uploadPhoto, uploadProfilePhoto, addPhoto, getPhotos, deletePhoto } from './storage.js';
-import { showModal, showNoteModal, showToast, showConfirm, showLoading, hideLoading, formatDate, formatDateTime, formatMoney, formatWeight, createAnimalCard, escapeHTML } from './ui.js';
+import { showModal, showNoteModal, showToast, showConfirm, showLoading, hideLoading, formatDate, formatDateTime, formatMoney, formatWeight, createAnimalCard, escapeHTML, setupMoneyInput, parseMoneyInput } from './ui.js';
 import { renderHistoryModal } from './history.js';
 import { renderSellForm } from './sales.js';
 import { getEstadisticas } from './db.js';
@@ -159,7 +159,7 @@ export async function renderAddForm(container) {
           </div>
           <div class="form-group">
             <label class="form-label">Valor de compra ($)</label>
-            <input type="number" step="0.01" class="form-input" name="valor_compra" />
+            <input type="text" class="form-input" name="valor_compra" placeholder="$ 0" autocomplete="off" />
           </div>
         </div>
 
@@ -190,15 +190,33 @@ export async function renderAddForm(container) {
           <textarea class="form-textarea" name="observaciones" rows="3"></textarea>
         </div>
 
-        <div class="form-group">
-          <label class="form-label">Foto de perfil</label>
-          <input type="file" class="form-input" name="foto_perfil" accept="image/*" capture="environment" />
+                <div class="form-group" style="background:#faf8f5; border:1px solid #d4caba; padding:16px;">
+          <label class="form-label">Foto de Perfil del Animal</label>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
+            <label class="btn btn-primary btn-sm" style="margin:0; cursor:pointer;">
+              Tomar Foto con Cámara
+              <input type="file" name="foto_perfil_cam" accept="image/*" capture="environment" style="display:none;" />
+            </label>
+            <label class="btn btn-secondary btn-sm" style="margin:0; cursor:pointer;">
+              Subir desde Galería
+              <input type="file" name="foto_perfil_gal" accept="image/*" style="display:none;" />
+            </label>
+          </div>
           <div id="profile-preview" class="photo-upload"></div>
         </div>
 
-        <div class="form-group">
-          <label class="form-label">Fotos adicionales</label>
-          <input type="file" class="form-input" name="fotos_adicionales" accept="image/*" multiple />
+        <div class="form-group" style="background:#faf8f5; border:1px solid #d4caba; padding:16px;">
+          <label class="form-label">Fotos Adicionales (Marcas, Fierros, Vistas)</label>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
+            <label class="btn btn-secondary btn-sm" style="margin:0; cursor:pointer;">
+              Tomar Otra con Cámara
+              <input type="file" id="foto-extra-cam" accept="image/*" capture="environment" style="display:none;" />
+            </label>
+            <label class="btn btn-secondary btn-sm" style="margin:0; cursor:pointer;">
+              Seleccionar Varias de Galería
+              <input type="file" id="foto-extra-gal" accept="image/*" multiple style="display:none;" />
+            </label>
+          </div>
           <div id="extra-preview" class="photo-upload" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;"></div>
         </div>
 
@@ -208,6 +226,51 @@ export async function renderAddForm(container) {
   `;
 
   // Auto-set sexo when tipo changes
+  const tipoSelect =   // Restaurar borrador de campos si el usuario cambió de pestaña
+  const draftKey = 'draft_add_animal';
+  try {
+    const saved = localStorage.getItem(draftKey);
+    if (saved) {
+      const d = JSON.parse(saved);
+      const f = container.querySelector('#add-animal-form');
+      if (f) {
+        if (d.numero) f.numero.value = d.numero;
+        if (d.nombre) f.nombre.value = d.nombre;
+        if (d.tipo) f.tipo.value = d.tipo;
+        if (d.sexo) f.sexo.value = d.sexo;
+        if (d.peso_entrada) f.peso_entrada.value = d.peso_entrada;
+        if (d.valor_compra) f.valor_compra.value = d.valor_compra;
+        if (d.fecha_ingreso) f.fecha_ingreso.value = d.fecha_ingreso;
+        if (d.raza) f.raza.value = d.raza;
+        if (d.color_pelaje) f.color_pelaje.value = d.color_pelaje;
+        if (d.hierro) f.hierro.value = d.hierro;
+        if (d.observaciones) f.observaciones.value = d.observaciones;
+      }
+    }
+  } catch (err) {}
+
+  // Guardar en tiempo real lo que el usuario escribe
+    const formElement = container.querySelector('#add-animal-form');
+  setupMoneyInput(formElement.valor_compra);
+  formElement.addEventListener('input', () => {
+    try {
+      const draft = {
+        numero: formElement.numero.value,
+        nombre: formElement.nombre.value,
+        tipo: formElement.tipo.value,
+        sexo: formElement.sexo.value,
+        peso_entrada: formElement.peso_entrada.value,
+        valor_compra: formElement.valor_compra.value,
+        fecha_ingreso: formElement.fecha_ingreso.value,
+        raza: formElement.raza.value,
+        color_pelaje: formElement.color_pelaje.value,
+        hierro: formElement.hierro.value,
+        observaciones: formElement.observaciones.value,
+      };
+      localStorage.setItem(draftKey, JSON.stringify(draft));
+    } catch (e) {}
+  });
+
   const tipoSelect = container.querySelector('[name="tipo"]');
   const sexoSelect = container.querySelector('[name="sexo"]');
   tipoSelect.addEventListener('change', () => {
@@ -218,29 +281,52 @@ export async function renderAddForm(container) {
     }
   });
 
-  // Profile photo preview
-  container.querySelector('[name="foto_perfil"]').addEventListener('change', (e) => {
-    const preview = document.getElementById('profile-preview');
-    preview.innerHTML = '';
-    if (e.target.files[0]) {
-      const img = document.createElement('img');
-      img.src = URL.createObjectURL(e.target.files[0]);
-      img.style.cssText = 'max-width:200px;max-height:200px;margin-top:8px;';
-      preview.appendChild(img);
-    }
-  });
+      // Variables para almacenar los archivos seleccionados
+    let selectedProfileFile = null;
+    let selectedExtraFiles = [];
 
-  // Extra photos preview
-  container.querySelector('[name="fotos_adicionales"]').addEventListener('change', (e) => {
-    const preview = document.getElementById('extra-preview');
-    preview.innerHTML = '';
-    Array.from(e.target.files).forEach(file => {
+    function handleProfileSelection(file) {
+      if (!file) return;
+      selectedProfileFile = file;
+      const preview = document.getElementById('profile-preview');
+      preview.innerHTML = '';
       const img = document.createElement('img');
       img.src = URL.createObjectURL(file);
-      img.style.cssText = 'max-width:120px;max-height:120px;';
+      img.style.cssText = 'max-width:200px;max-height:200px;margin-top:8px;border:2px solid #211a16;object-fit:cover;';
       preview.appendChild(img);
+    }
+
+    container.querySelector('[name="foto_perfil_cam"]').addEventListener('change', (e) => {
+      handleProfileSelection(e.target.files[0]);
     });
-  });
+    container.querySelector('[name="foto_perfil_gal"]').addEventListener('change', (e) => {
+      handleProfileSelection(e.target.files[0]);
+    });
+
+    function renderExtraPreviews() {
+      const preview = document.getElementById('extra-preview');
+      preview.innerHTML = '';
+      selectedExtraFiles.forEach(file => {
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
+        img.style.cssText = 'width:90px;height:90px;border:1px solid #211a16;object-fit:cover;';
+        preview.appendChild(img);
+      });
+    }
+
+    container.querySelector('#foto-extra-cam').addEventListener('change', (e) => {
+      if (e.target.files[0]) {
+        selectedExtraFiles.push(e.target.files[0]);
+        renderExtraPreviews();
+      }
+    });
+
+    container.querySelector('#foto-extra-gal').addEventListener('change', (e) => {
+      if (e.target.files.length) {
+        Array.from(e.target.files).forEach(f => selectedExtraFiles.push(f));
+        renderExtraPreviews();
+      }
+    });
 
   // Submit
   container.querySelector('#add-animal-form').addEventListener('submit', async (e) => {
@@ -254,7 +340,7 @@ export async function renderAddForm(container) {
         tipo: form.tipo.value,
         sexo: form.sexo.value,
         peso_entrada: form.peso_entrada.value ? parseFloat(form.peso_entrada.value) : null,
-        valor_compra: form.valor_compra.value ? parseFloat(form.valor_compra.value) : null,
+        valor_compra: parseMoneyInput(form.valor_compra),
         fecha_ingreso: form.fecha_ingreso.value || null,
         raza: form.raza.value.trim() || null,
         color_pelaje: form.color_pelaje.value.trim() || null,
@@ -265,18 +351,19 @@ export async function renderAddForm(container) {
       const animal = await createAnimal(data);
 
       // Upload profile photo
-      const profileFile = form.foto_perfil.files[0];
+      const profileFile = selectedProfileFile;
       if (profileFile) {
         await uploadProfilePhoto(profileFile, animal.id);
       }
 
       // Upload additional photos
-      const extraFiles = form.fotos_adicionales.files;
+      const extraFiles = selectedExtraFiles;
       for (const file of extraFiles) {
         const url = await uploadPhoto(file, animal.id);
         await addPhoto(animal.id, url);
       }
 
+            localStorage.removeItem('draft_add_animal');
       showToast('Animal agregado exitosamente', 'success');
       window.location.hash = '#/dashboard';
     } catch (err) {
@@ -355,9 +442,15 @@ export async function renderAnimalDetail(container, id) {
             : '<div class="empty-state">Sin fotos adicionales.</div>'
           }
         </div>
-        <div style="margin-top:8px;">
-          <input type="file" id="add-photo-input" accept="image/*" multiple style="display:none;" />
-          <button class="btn btn-secondary btn-sm" id="btn-add-photo">Agregar Fotos</button>
+                <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+          <label class="btn btn-primary btn-sm" style="margin:0; cursor:pointer;">
+            Tomar Foto con Cámara
+            <input type="file" id="add-photo-cam" accept="image/*" capture="environment" style="display:none;" />
+          </label>
+          <label class="btn btn-secondary btn-sm" style="margin:0; cursor:pointer;">
+            Subir desde Galería
+            <input type="file" id="add-photo-gal" accept="image/*" multiple style="display:none;" />
+          </label>
         </div>
       </div>
 
@@ -420,7 +513,7 @@ export async function renderAnimalDetail(container, id) {
         ${isVacaONovilla ? `<a href="#/breeding/${id}" class="btn btn-secondary">Registrar Cría</a>` : ''}
         ${isNotWeaned ? `<a href="#/wean/${id}" class="btn btn-secondary">Destetar</a>` : ''}
         <button class="btn btn-warning" id="btn-vender">Vender</button>
-        <button class="btn btn-danger" id="btn-perdido">Marcar como Perdido</button>
+        <button class="btn btn-danger" id="btn-perdido">Eliminar Animal</button>
       </div>
     `;
 
@@ -440,27 +533,32 @@ export async function renderAnimalDetail(container, id) {
     });
 
     // Add photos
-    document.getElementById('btn-add-photo').addEventListener('click', () => {
-      document.getElementById('add-photo-input').click();
-    });
-    document.getElementById('add-photo-input').addEventListener('change', async (e) => {
-      const files = e.target.files;
-      if (!files.length) return;
+    async function handleDetailUpload(files) {
+      if (!files || !files.length) return;
       showLoading();
       try {
         for (const file of files) {
           const url = await uploadPhoto(file, id);
           await addPhoto(id, url);
         }
-        showToast('Fotos agregadas', 'success');
+        showToast('Fotos agregadas y optimizadas', 'success');
         renderAnimalDetail(container, id);
       } catch (err) {
         console.error(err);
-        showToast('Error subiendo fotos', 'error');
+        showToast('Error subiendo fotos: ' + err.message, 'error');
       } finally {
         hideLoading();
       }
-    });
+    }
+
+    const camInput = document.getElementById('add-photo-cam');
+    if (camInput) {
+      camInput.addEventListener('change', (e) => handleDetailUpload(e.target.files));
+    }
+    const galInput = document.getElementById('add-photo-gal');
+    if (galInput) {
+      galInput.addEventListener('change', (e) => handleDetailUpload(e.target.files));
+    }
 
     // New pesaje modal
     document.getElementById('btn-new-pesaje').addEventListener('click', () => {
@@ -503,12 +601,12 @@ export async function renderAnimalDetail(container, id) {
 
     // Mark lost
     document.getElementById('btn-perdido').addEventListener('click', () => {
-      showConfirm('¿Está seguro de marcar este animal como perdido?', () => {
-        showNoteModal('Motivo de pérdida', async (nota) => {
+      showConfirm('¿Está seguro de enviar este animal al apartado de Eliminadas?', () => {
+        showNoteModal('Motivo de eliminación', async (nota) => {
           showLoading();
           try {
             await marcarPerdido(id, nota);
-            showToast('Animal marcado como perdido', 'success');
+            showToast('Animal movido al apartado de Eliminadas', 'success');
             window.location.hash = '#/dashboard';
           } catch (err) {
             console.error(err);
@@ -619,7 +717,52 @@ export async function renderEditForm(container, id) {
     `;
 
     // Auto-set sexo on tipo change
-    const tipoSelect = container.querySelector('[name="tipo"]');
+    const tipoSelect =   // Restaurar borrador de campos si el usuario cambió de pestaña
+  const draftKey = 'draft_add_animal';
+  try {
+    const saved = localStorage.getItem(draftKey);
+    if (saved) {
+      const d = JSON.parse(saved);
+      const f = container.querySelector('#add-animal-form');
+      if (f) {
+        if (d.numero) f.numero.value = d.numero;
+        if (d.nombre) f.nombre.value = d.nombre;
+        if (d.tipo) f.tipo.value = d.tipo;
+        if (d.sexo) f.sexo.value = d.sexo;
+        if (d.peso_entrada) f.peso_entrada.value = d.peso_entrada;
+        if (d.valor_compra) f.valor_compra.value = d.valor_compra;
+        if (d.fecha_ingreso) f.fecha_ingreso.value = d.fecha_ingreso;
+        if (d.raza) f.raza.value = d.raza;
+        if (d.color_pelaje) f.color_pelaje.value = d.color_pelaje;
+        if (d.hierro) f.hierro.value = d.hierro;
+        if (d.observaciones) f.observaciones.value = d.observaciones;
+      }
+    }
+  } catch (err) {}
+
+  // Guardar en tiempo real lo que el usuario escribe
+    const formElement = container.querySelector('#add-animal-form');
+  setupMoneyInput(formElement.valor_compra);
+  formElement.addEventListener('input', () => {
+    try {
+      const draft = {
+        numero: formElement.numero.value,
+        nombre: formElement.nombre.value,
+        tipo: formElement.tipo.value,
+        sexo: formElement.sexo.value,
+        peso_entrada: formElement.peso_entrada.value,
+        valor_compra: formElement.valor_compra.value,
+        fecha_ingreso: formElement.fecha_ingreso.value,
+        raza: formElement.raza.value,
+        color_pelaje: formElement.color_pelaje.value,
+        hierro: formElement.hierro.value,
+        observaciones: formElement.observaciones.value,
+      };
+      localStorage.setItem(draftKey, JSON.stringify(draft));
+    } catch (e) {}
+  });
+
+  const tipoSelect = container.querySelector('[name="tipo"]');
     const sexoSelect = container.querySelector('[name="sexo"]');
     tipoSelect.addEventListener('change', () => {
       const sexoMap = { vaca: 'femenino', toro: 'masculino', novilla: 'femenino', ternero: 'masculino', ternera: 'femenino' };
@@ -637,7 +780,7 @@ export async function renderEditForm(container, id) {
         tipo: form.tipo.value,
         sexo: form.sexo.value,
         peso_entrada: form.peso_entrada.value ? parseFloat(form.peso_entrada.value) : null,
-        valor_compra: form.valor_compra.value ? parseFloat(form.valor_compra.value) : null,
+        valor_compra: parseMoneyInput(form.valor_compra),
         fecha_ingreso: form.fecha_ingreso.value || null,
         raza: form.raza.value.trim() || null,
         color_pelaje: form.color_pelaje.value.trim() || null,
@@ -664,7 +807,8 @@ export async function renderEditForm(container, id) {
       showNoteModal('Nota sobre los cambios realizados', async (nota) => {
         showLoading();
         try {
-          await updateAnimal(id, changes, nota);
+                    await updateAnimal(id, changes, nota);
+          try { localStorage.removeItem(draftEditKey); } catch(e) {}
           showToast('Animal actualizado exitosamente', 'success');
           window.location.hash = `#/animal/${id}`;
         } catch (err) {

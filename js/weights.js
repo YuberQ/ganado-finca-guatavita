@@ -80,7 +80,17 @@ export async function renderWeightSession(container) {
 
       tbody.innerHTML = filtered.map(a => {
         const pesoActual = a.peso_actual || a.peso_entrada;
-        const pesoStr = pesoActual ? formatWeight(pesoActual) : 'Sin registrar';
+                  const pesoStr = pesoActual ? formatWeight(pesoActual) : 'Sin registrar';
+          let savedPeso = '';
+          let savedNota = '';
+          try {
+            const rawDraft = localStorage.getItem('draft_weight_' + a.id);
+            if (rawDraft) {
+              const parsed = JSON.parse(rawDraft);
+              savedPeso = parsed.peso || '';
+              savedNota = parsed.nota || '';
+            }
+          } catch(e) {}
 
         return `
           <tr data-animal-id="${a.id}">
@@ -93,10 +103,10 @@ export async function renderWeightSession(container) {
             <td><span class="badge badge-${a.tipo}">${escapeHTML(a.tipo)}</span></td>
             <td><strong>${pesoStr}</strong></td>
             <td>
-              <input type="number" step="0.01" class="form-input input-peso-nuevo" placeholder="Ej: 385" style="width:130px;" />
+              <input type="number" step="0.01" class="form-input input-peso-nuevo" value="${savedPeso}" placeholder="Ej: 385" style="width:130px;" />
             </td>
             <td>
-              <input type="text" class="form-input input-nota-peso" placeholder="Opcional..." style="width:160px;" />
+              <input type="text" class="form-input input-nota-peso" value="${savedNota}" placeholder="Opcional..." style="width:160px;" />
             </td>
             <td style="text-align:right;">
               <button class="btn btn-sm btn-primary btn-save-single-weight" data-id="${a.id}" data-name="${escapeHTML(a.nombre)}">
@@ -108,6 +118,23 @@ export async function renderWeightSession(container) {
       }).join('');
 
       // Guardar peso individual
+            // Auto-guardado en tiempo real al escribir en la jornada de peso
+      tbody.querySelectorAll('.input-peso-nuevo, .input-nota-peso').forEach(input => {
+        input.addEventListener('input', (e) => {
+          const row = e.target.closest('tr');
+          const id = row.dataset.animalId;
+          const pesoVal = row.querySelector('.input-peso-nuevo').value;
+          const notaVal = row.querySelector('.input-nota-peso').value;
+          try {
+            if (pesoVal || notaVal) {
+              localStorage.setItem('draft_weight_' + id, JSON.stringify({ peso: pesoVal, nota: notaVal }));
+            } else {
+              
+            }
+          } catch(err) {}
+        });
+      });
+
       tbody.querySelectorAll('.btn-save-single-weight').forEach(btn => {
         btn.addEventListener('click', async () => {
           const id = btn.dataset.id;
@@ -125,6 +152,7 @@ export async function renderWeightSession(container) {
           showLoading();
           try {
             await addPesaje(id, pesoVal, notaInput.value.trim() || 'Jornada de pesaje');
+                        try { localStorage.removeItem('draft_weight_' + id); } catch(e) {}
             showToast(`Pesaje de ${btn.dataset.name} guardado: ${pesoVal} kg`, 'success');
             pesoInput.value = '';
             notaInput.value = '';
@@ -188,7 +216,8 @@ export async function renderWeightSession(container) {
         let guardados = 0;
         try {
           for (const item of itemsToSave) {
-            await addPesaje(item.animalId, item.peso, item.notas);
+                        await addPesaje(item.animalId, item.peso, item.notas);
+            try { localStorage.removeItem('draft_weight_' + item.animalId); } catch(e) {}
             item.pesoInput.value = '';
             if (item.notaInput) item.notaInput.value = '';
             guardados++;

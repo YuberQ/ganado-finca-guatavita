@@ -37,7 +37,7 @@ export function renderExportPage(container) {
               </label>
               <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
                 <input type="checkbox" id="chk-perdidos" checked />
-                <span><strong>Animales Perdidos / Bajas</strong></span>
+                <span><strong>Animales Eliminados</strong></span>
               </label>
             </div>
           </div>
@@ -209,7 +209,7 @@ export async function exportToExcel(options = { vacas: true, toros: true, novill
     // Hoja adicional: Perdidos
     if (options.perdidos && perdidos && perdidos.length > 0) {
       const lostRows = [
-        ['ANIMALES PERDIDOS / BAJAS — FINCA ANGEL MARIA', '', '', '', ''],
+        ['ANIMALES ELIMINADOS — FINCA ANGEL MARIA', '', '', '', ''],
         ['N°', 'Nombre', 'Tipo', 'Fecha Registro', 'Observaciones / Motivo']
       ];
 
@@ -224,7 +224,7 @@ export async function exportToExcel(options = { vacas: true, toros: true, novill
       });
 
       const wsPerdidos = window.XLSX.utils.aoa_to_sheet(lostRows);
-      window.XLSX.utils.book_append_sheet(wb, wsPerdidos, 'Perdidos');
+      window.XLSX.utils.book_append_sheet(wb, wsPerdidos, 'Eliminados');
     }
 
     // Descargar archivo

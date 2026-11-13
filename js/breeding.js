@@ -1,4 +1,4 @@
-// breeding.js — Gestión de crías y destete
+﻿// breeding.js — Gestión de crías y destete
 import { getAnimal, registrarCria, destetar } from './db.js';
 import { uploadProfilePhoto } from './storage.js';
 import { showToast, showLoading, hideLoading, showConfirm, escapeHTML } from './ui.js';
@@ -59,11 +59,20 @@ export async function renderBreedingForm(container, motherId) {
               <input type="number" step="0.01" id="cria-peso" class="form-input" placeholder="Ej: 32" />
             </div>
 
-            <div class="form-group">
-              <label class="form-label">Foto de la Cría (Cámara o Galería)</label>
-              <input type="file" id="cria-foto" accept="image/*" capture="environment" class="form-input" />
+                        <div class="form-group" style="background:#faf8f5; border:1px solid #d4caba; padding:16px;">
+              <label class="form-label">Foto de la Cría</label>
+              <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
+                <label class="btn btn-primary btn-sm" style="margin:0; cursor:pointer;">
+                  Tomar Foto con Cámara
+                  <input type="file" id="cria-foto-cam" accept="image/*" capture="environment" style="display:none;" />
+                </label>
+                <label class="btn btn-secondary btn-sm" style="margin:0; cursor:pointer;">
+                  Subir desde Galería
+                  <input type="file" id="cria-foto-gal" accept="image/*" style="display:none;" />
+                </label>
+              </div>
               <div id="cria-preview" style="margin-top:10px; display:none;">
-                <img id="cria-preview-img" src="" alt="Vista previa" style="max-height:160px; border:2px solid var(--border-color); object-fit:cover;" />
+                <img id="cria-preview-img" src="" alt="Vista previa" style="max-height:170px; border:2px solid var(--border-color); object-fit:cover;" />
               </div>
             </div>
 
@@ -76,19 +85,45 @@ export async function renderBreedingForm(container, motherId) {
       </div>
     `;
 
-    const fotoInput = container.querySelector('#cria-foto');
+        // Restaurar borrador de cria
+    const draftCriaKey = 'draft_cria_' + motherId;
+    try {
+      const saved = localStorage.getItem(draftCriaKey);
+      if (saved) {
+        const d = JSON.parse(saved);
+        if (d.sexo) container.querySelector('#cria-sexo').value = d.sexo;
+        if (d.fecha) container.querySelector('#cria-fecha').value = d.fecha;
+        if (d.numero) container.querySelector('#cria-numero').value = d.numero;
+        if (d.peso) container.querySelector('#cria-peso').value = d.peso;
+      }
+    } catch(e) {}
+
+    // Guardado continuo en tiempo real
+    container.querySelector('#breeding-form').addEventListener('input', () => {
+      try {
+        const draft = {
+          sexo: container.querySelector('#cria-sexo').value,
+          fecha: container.querySelector('#cria-fecha').value,
+          numero: container.querySelector('#cria-numero').value,
+          peso: container.querySelector('#cria-peso').value,
+        };
+        localStorage.setItem(draftCriaKey, JSON.stringify(draft));
+      } catch(e) {}
+    });
+
+        let selectedCriaPhoto = null;
     const previewDiv = container.querySelector('#cria-preview');
     const previewImg = container.querySelector('#cria-preview-img');
 
-    fotoInput.addEventListener('change', () => {
-      const file = fotoInput.files[0];
-      if (file) {
-        previewImg.src = URL.createObjectURL(file);
-        previewDiv.style.display = 'block';
-      } else {
-        previewDiv.style.display = 'none';
-      }
-    });
+    function handleCriaPhoto(file) {
+      if (!file) return;
+      selectedCriaPhoto = file;
+      previewImg.src = URL.createObjectURL(file);
+      previewDiv.style.display = 'block';
+    }
+
+    container.querySelector('#cria-foto-cam').addEventListener('change', (e) => handleCriaPhoto(e.target.files[0]));
+    container.querySelector('#cria-foto-gal').addEventListener('change', (e) => handleCriaPhoto(e.target.files[0]));
 
     container.querySelector('#breeding-form').addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -113,10 +148,11 @@ export async function renderBreedingForm(container, motherId) {
         });
 
         // Subir foto si existe
-        if (fotoInput.files[0] && nuevaCria?.id) {
-          await uploadProfilePhoto(fotoInput.files[0], nuevaCria.id);
+                if (selectedCriaPhoto && nuevaCria?.id) {
+          await uploadProfilePhoto(selectedCriaPhoto, nuevaCria.id);
         }
 
+                try { localStorage.removeItem(draftCriaKey); } catch(e) {}
         showToast('Cría registrada exitosamente', 'success');
         window.location.hash = `#/animal/${motherId}`;
       } catch (err) {

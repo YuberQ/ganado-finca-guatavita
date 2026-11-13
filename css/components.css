@@ -1,4 +1,4 @@
-/* ==========================================================
+﻿/* ==========================================================
    COMPONENTS — Estilo FARMBODY
    Marcos dobles artesanales, tipografía con fuerza rústica,
    y estética de rancho tradicional de alta gama.
@@ -359,7 +359,7 @@
   border-color: #7a7a7a;
 }
 
-.badge-perdido {
+.badge-perdido, .badge-eliminado {
   background-color: #fae8e8;
   color: var(--color-danger);
   border-color: var(--color-danger);

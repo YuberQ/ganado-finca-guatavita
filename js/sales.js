@@ -1,6 +1,6 @@
-// sales.js — Gestión de animales vendidos, formulario de venta y animales perdidos
+﻿// sales.js — Gestión de animales vendidos, formulario de venta y animales perdidos
 import { venderAnimal, revertirVenta, revertirPerdido, getVendidos, getPerdidos, getAnimal } from './db.js';
-import { showNoteModal, showToast, showLoading, hideLoading, formatDate, formatMoney, formatWeight, escapeHTML } from './ui.js';
+import { showNoteModal, showToast, showLoading, hideLoading, formatDate, formatMoney, formatWeight, escapeHTML, setupMoneyInput, parseMoneyInput } from './ui.js';
 
 /**
  * Modal para vender un animal.
@@ -37,7 +37,7 @@ export async function renderSellForm(animalId) {
 
             <div class="form-group">
               <label class="form-label" for="sell-precio">Precio Total de Venta ($ COP) *</label>
-              <input type="number" step="1000" id="sell-precio" class="form-input" placeholder="Ej: 3200000" required />
+              <input type="text" id="sell-precio" class="form-input" placeholder="$ 0" autocomplete="off" required />
             </div>
 
             <div class="form-group">
@@ -66,16 +66,17 @@ export async function renderSellForm(animalId) {
     };
 
     modal.querySelector('.modal-close').addEventListener('click', close);
-    modal.querySelector('.modal-cancel-btn').addEventListener('click', close);
+        modal.querySelector('.modal-cancel-btn').addEventListener('click', close);
+    setupMoneyInput(modal.querySelector('#sell-precio'));
 
     modal.querySelector('#sell-modal-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const pesoSalida = modal.querySelector('#sell-peso').value;
-      const precioVenta = modal.querySelector('#sell-precio').value;
+      const precioVenta = parseMoneyInput(modal.querySelector('#sell-precio'));
       const comprador = modal.querySelector('#sell-comprador').value.trim() || null;
       const nota = modal.querySelector('#sell-nota').value.trim() || 'Venta de animal';
 
-      if (!precioVenta || parseFloat(precioVenta) <= 0) {
+      if (!precioVenta || precioVenta <= 0) {
         showToast('Ingrese un precio de venta válido', 'error');
         return;
       }
@@ -84,7 +85,7 @@ export async function renderSellForm(animalId) {
       try {
         await venderAnimal(animalId, {
           peso_salida: pesoSalida ? parseFloat(pesoSalida) : null,
-          precio_venta: parseFloat(precioVenta),
+          precio_venta: precioVenta,
           comprador: comprador,
           nota: nota
         });
@@ -226,7 +227,7 @@ export async function renderLostList(container) {
 
     let tableRows = '';
     if (!perdidos || perdidos.length === 0) {
-      tableRows = '<tr><td colspan="5" class="empty-state">No hay animales registrados como perdidos.</td></tr>';
+      tableRows = '<tr><td colspan="5" class="empty-state">No hay animales en la papelera de eliminadas.</td></tr>';
     } else {
       tableRows = perdidos.map(a => `
         <tr>
@@ -241,7 +242,7 @@ export async function renderLostList(container) {
           <td>${escapeHTML(a.observaciones || 'Sin detalles')}</td>
           <td style="text-align:right;">
             <button class="btn btn-sm btn-secondary btn-revert-lost" data-id="${a.id}" data-name="${escapeHTML(a.nombre)}">
-              Reactivar Animal
+              Restaurar al Inventario
             </button>
           </td>
         </tr>
@@ -251,14 +252,14 @@ export async function renderLostList(container) {
     container.innerHTML = `
       <div class="card">
         <div class="card-header" style="display:flex; justify-content:space-between; align-items:center;">
-          <h2>Animales Perdidos / Bajas</h2>
+          <h2>Animales Eliminados</h2>
           <span style="font-size:14px; font-weight:600; color:var(--color-danger);">
             Total: ${perdidos ? perdidos.length : 0} animales
           </span>
         </div>
         <div class="card-body">
           <p style="font-size:13px; color:var(--text-secondary); margin-bottom:16px;">
-            Animales retirados por accidente, robo o fallecimiento. Si hubo una equivocación, puede reactivar el animal ingresando una nota de corrección obligatoria.
+            Papelera de animales eliminados. Si fue un error o una prueba, puede reactivar el animal al inventario activo ingresando una nota de justificación.
           </p>
 
           <div class="table-wrapper">
@@ -288,15 +289,15 @@ export async function renderLostList(container) {
         const id = btn.dataset.id;
         const nombre = btn.dataset.name;
 
-        showNoteModal(`Reactivar animal "${nombre}"`, async (nota) => {
+        showNoteModal(`Restaurar animal "${nombre}"`, async (nota) => {
           showLoading();
           try {
             await revertirPerdido(id, nota);
-            showToast(`Animal "${nombre}" reactivado en el inventario activo`, 'success');
+            showToast(`Animal "${nombre}" restaurado exitosamente al inventario activo`, 'success');
             renderLostList(container);
           } catch (err) {
             console.error(err);
-            showToast('Error reactivando animal: ' + err.message, 'error');
+            showToast('Error restaurando animal: ' + err.message, 'error');
           } finally {
             hideLoading();
           }

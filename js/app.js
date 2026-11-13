@@ -1,4 +1,4 @@
-// app.js — Router y controlador principal de la SPA
+﻿// app.js — Router y controlador principal de la SPA
 import { requireAuth, logout } from './auth.js';
 import { renderDashboard, renderAddForm, renderAnimalDetail, renderEditForm } from './animals.js';
 import { renderBreedingForm, renderWeanForm } from './breeding.js';
@@ -12,7 +12,7 @@ const ROUTE_TITLES = {
   '/add': 'Agregar Nuevo Animal',
   '/weight-session': 'Jornada de Pesaje',
   '/sold': 'Animales Vendidos',
-  '/lost': 'Animales Perdidos / Bajas',
+  '/lost': 'Animales Eliminados',
   '/export': 'Exportar Relación a Excel'
 };
 
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (pageTitle) pageTitle.textContent = 'Animales Vendidos';
         await renderSoldList(pageContent);
       } else if (parts[0] === 'lost') {
-        if (pageTitle) pageTitle.textContent = 'Animales Perdidos';
+        if (pageTitle) pageTitle.textContent = 'Animales Eliminados';
         await renderLostList(pageContent);
       } else if (parts[0] === 'export') {
         if (pageTitle) pageTitle.textContent = 'Exportar a Excel';
