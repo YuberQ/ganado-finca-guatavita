@@ -6,14 +6,12 @@
   <title>Acceso — Finca Guatavita</title>
   <style>
     :root {
-      --ink-black: #111111;
-      --paper-cream: #fbf9f4;
-      --paper-card: #ffffff;
-      --green-900: #142817;
-      --brown-700: #4a2e1d;
-      --border-color: #2b2b2b;
-      --font-serif: 'Georgia', 'Garamond', 'Times New Roman', serif;
-      --font-sans: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      --farm-leather-dark: #2c1c14;
+      --farm-pine-dark: #16281a;
+      --farm-cream: #f5f0e6;
+      --font-display: 'Impact', 'Oswald', 'Franklin Gothic Medium', 'Arial Black', sans-serif;
+      --font-serif: 'Baskerville', 'Georgia', serif;
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
     }
 
     *, *::before, *::after {
@@ -23,52 +21,80 @@
     }
 
     body {
-      font-family: var(--font-serif);
-      background-color: var(--paper-cream);
+      font-family: var(--font-sans);
+      background: linear-gradient(rgba(33, 26, 22, 0.65), rgba(33, 26, 22, 0.65)),
+                  url('https://images.unsplash.com/photo-1500595046743-cd271d694d30?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 24px;
-      color: var(--ink-black);
+      padding: 20px;
+    }
+
+    .login-wrapper {
+      width: 100%;
+      max-width: 460px;
+    }
+
+    .login-banner-frame {
+      border: 3px solid #ffffff;
+      padding: 20px 24px;
+      text-align: center;
+      margin-bottom: 24px;
+      background-color: rgba(22, 40, 26, 0.55);
+      backdrop-filter: blur(3px);
+    }
+
+    .login-banner-title {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 5px;
+      color: #ffffff;
+      text-transform: uppercase;
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    .login-banner-divider {
+      height: 2px;
+      background-color: #ffffff;
+      margin: 8px 0;
+    }
+
+    .login-banner-subtitle {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 14px;
+      letter-spacing: 1px;
+      color: #f5f0e6;
+      margin: 0;
     }
 
     .login-card {
-      background: var(--paper-card);
-      border: 2px solid var(--ink-black);
-      width: 100%;
-      max-width: 440px;
+      background: #ffffff;
+      border: 2px solid #211a16;
+      box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
     }
 
     .login-header {
-      background-color: var(--green-900);
+      background-color: var(--farm-pine-dark);
       color: #ffffff;
-      padding: 28px 24px;
+      padding: 16px 20px;
       text-align: center;
-      border-bottom: 3px double #ffffff;
+      border-bottom: 2px solid #000000;
     }
 
     .login-header__title {
-      font-family: var(--font-serif);
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      line-height: 1.2;
-    }
-
-    .login-header__subtitle {
-      font-family: var(--font-sans);
-      font-size: 11px;
-      font-weight: 600;
-      color: #d1dbc8;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-top: 6px;
     }
 
     .login-body {
-      padding: 32px 28px;
+      padding: 28px 24px;
     }
 
     .login-group {
@@ -79,49 +105,49 @@
       display: block;
       margin-bottom: 6px;
       font-family: var(--font-sans);
-      font-weight: 700;
+      font-weight: 800;
       font-size: 11px;
-      color: var(--ink-black);
+      color: #211a16;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
+      letter-spacing: 1px;
     }
 
     .login-input {
       width: 100%;
-      padding: 10px 12px;
+      padding: 12px 14px;
       font-family: var(--font-sans);
       font-size: 14px;
-      color: var(--ink-black);
-      border: 1px solid var(--border-color);
+      color: #211a16;
+      border: 1px solid #211a16;
       background: #ffffff;
       border-radius: 0;
     }
 
     .login-input:focus {
       outline: none;
-      border-color: var(--green-900);
-      box-shadow: inset 0 0 0 1px var(--green-900);
+      border-color: var(--farm-pine-dark);
+      box-shadow: inset 0 0 0 1px var(--farm-pine-dark);
     }
 
     .login-btn {
       width: 100%;
-      padding: 12px;
-      background-color: var(--green-900);
+      padding: 14px;
+      background-color: var(--farm-pine-dark);
       color: #ffffff;
       font-family: var(--font-sans);
       font-size: 13px;
-      font-weight: 700;
-      border: 1px solid #000000;
+      font-weight: 900;
+      border: 2px solid #000000;
       border-radius: 0;
       cursor: pointer;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: background-color 0.1s ease;
+      letter-spacing: 2px;
+      transition: background-color 0.15s ease;
       margin-top: 10px;
     }
 
     .login-btn:hover {
-      background-color: #0b170d;
+      background-color: #233e28;
     }
 
     .login-btn:disabled {
@@ -133,11 +159,11 @@
       display: none;
       padding: 10px 14px;
       background-color: #fbeded;
-      color: #8a1818;
+      color: #7d1c1c;
       font-family: var(--font-sans);
       font-size: 12px;
-      font-weight: 600;
-      border: 1px solid #8a1818;
+      font-weight: 800;
+      border: 1px solid #7d1c1c;
       margin-bottom: 16px;
     }
 
@@ -147,65 +173,73 @@
 
     .login-footer {
       text-align: center;
-      padding: 12px 24px;
-      border-top: 1px solid #e2ddd3;
-      background-color: #f5f2ea;
+      padding: 12px;
+      border-top: 1px solid #e0d8cb;
+      background-color: #f7f3ec;
     }
 
     .login-footer__text {
       font-family: var(--font-sans);
       font-size: 11px;
-      color: #555555;
+      font-weight: 700;
+      color: #6b6159;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
+      letter-spacing: 1px;
     }
   </style>
 </head>
 <body>
-  <div class="login-card">
-    <div class="login-header">
-      <h1 class="login-header__title">Finca Guatavita</h1>
-      <p class="login-header__subtitle">Sistema de Control & Registro Ganadero</p>
+  <div class="login-wrapper">
+    <div class="login-banner-frame">
+      <h1 class="login-banner-title">FINCA GUATAVITA</h1>
+      <div class="login-banner-divider"></div>
+      <p class="login-banner-subtitle">Ganadería Tradicional • Control de Inventario</p>
     </div>
 
-    <div class="login-body">
-      <div id="login-error" class="login-error"></div>
+    <div class="login-card">
+      <div class="login-header">
+        <h2 class="login-header__title">Acceso al Sistema</h2>
+      </div>
 
-      <form id="login-form">
-        <div class="login-group">
-          <label class="login-label" for="email">Correo Institucional / Autorizado</label>
-          <input
-            class="login-input"
-            type="email"
-            id="email"
-            name="email"
-            placeholder="usuario@dominio.com"
-            required
-            autocomplete="email"
-          >
-        </div>
+      <div class="login-body">
+        <div id="login-error" class="login-error"></div>
 
-        <div class="login-group">
-          <label class="login-label" for="password">Contraseña</label>
-          <input
-            class="login-input"
-            type="password"
-            id="password"
-            name="password"
-            placeholder="••••••••"
-            required
-            autocomplete="current-password"
-          >
-        </div>
+        <form id="login-form">
+          <div class="login-group">
+            <label class="login-label" for="email">Correo Autorizado</label>
+            <input
+              class="login-input"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="usuario@dominio.com"
+              required
+              autocomplete="email"
+            >
+          </div>
 
-        <button class="login-btn" type="submit" id="login-btn">
-          Ingresar al Sistema
-        </button>
-      </form>
-    </div>
+          <div class="login-group">
+            <label class="login-label" for="password">Contraseña</label>
+            <input
+              class="login-input"
+              type="password"
+              id="password"
+              name="password"
+              placeholder="••••••••"
+              required
+              autocomplete="current-password"
+            >
+          </div>
 
-    <div class="login-footer">
-      <p class="login-footer__text">Uver Quintero — Guatavita</p>
+          <button class="login-btn" type="submit" id="login-btn">
+            Ingresar al Sistema
+          </button>
+        </form>
+      </div>
+
+      <div class="login-footer">
+        <p class="login-footer__text">Uver Quintero — Guatavita</p>
+      </div>
     </div>
   </div>
 

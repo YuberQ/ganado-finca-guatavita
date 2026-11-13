@@ -1,6 +1,7 @@
 /* ==========================================================
-   LAYOUT — Estilo Periódico / Editorial
-   Inspiración The New York Times / Financial Times
+   LAYOUT — Estilo FARMBODY / Artesanal Rústico Premium
+   Barra superior limpia, menú de cuero/madera oscura,
+   y marcos de diseño rústico.
    ========================================================== */
 
 *,
@@ -21,46 +22,61 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ── Encabezado / Barra Superior ── */
+/* ── Encabezado Superior (Estilo Header Farmbody) ── */
 .top-bar {
   position: sticky;
   top: 0;
   z-index: 100;
   height: var(--topbar-height);
-  background-color: var(--paper-card);
-  border-bottom: 2px solid var(--ink-black);
+  background-color: #ffffff;
+  border-bottom: 2px solid #211a16;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0 var(--space-5);
-  box-shadow: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.top-bar__left {
+  display: flex;
+  align-items: center;
 }
 
 .top-bar__hamburger {
   display: none;
   background: none;
-  border: 1px solid var(--border-color);
-  padding: var(--space-2);
+  border: 1px solid #211a16;
+  padding: 6px;
   cursor: pointer;
   margin-right: var(--space-4);
-  color: var(--ink-black);
+  color: #211a16;
 }
 
 .top-bar__hamburger svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   fill: currentColor;
 }
 
 .top-bar__title {
-  font-family: var(--font-serif);
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: 0.2px;
-  color: var(--ink-black);
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: 2.5px;
+  color: #211a16;
   text-transform: uppercase;
 }
 
-/* ── Menú Lateral / Registro ── */
+.top-bar__meta {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--farm-leather-light);
+}
+
+/* ── Menú Lateral (Tono Cuero Envejecido & Roble) ── */
 .sidebar {
   position: fixed;
   top: 0;
@@ -68,7 +84,7 @@ body {
   bottom: 0;
   width: var(--sidebar-width);
   background-color: var(--bg-sidebar);
-  border-right: 2px solid var(--ink-black);
+  border-right: 2px solid #140d0a;
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -76,34 +92,50 @@ body {
 }
 
 .sidebar-header {
-  padding: var(--space-5) var(--space-4);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 24px 20px 20px 20px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.12);
+  text-align: center;
+}
+
+.sidebar-badge {
+  display: inline-block;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 3px 12px;
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--farm-parchment);
+  margin-bottom: 8px;
 }
 
 .sidebar-logo {
   display: block;
   text-decoration: none;
-  color: #f7f5f0;
-  font-family: var(--font-serif);
-  font-size: 19px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  line-height: 1.2;
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  line-height: 1.1;
   text-transform: uppercase;
 }
 
 .sidebar-logo span {
   display: block;
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--brown-300);
-  margin-top: 4px;
-  letter-spacing: 1.5px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 13px;
+  font-weight: 400;
+  color: #c9b9a6;
+  margin-top: 5px;
+  letter-spacing: 0.5px;
+  text-transform: none;
 }
 
 .sidebar-nav {
-  padding: var(--space-3) 0;
+  padding: var(--space-4) 0;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -113,50 +145,50 @@ body {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  padding: 11px var(--space-4);
-  color: #d6d3cc;
+  padding: 13px 20px;
+  color: #d1c7bc;
   text-decoration: none;
   font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  border-left: 3px solid transparent;
-  transition: background-color 0.1s ease, color 0.1s ease;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
+  border-left: 4px solid transparent;
+  transition: all 0.15s ease;
 }
 
 .sidebar-link:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.06);
   color: #ffffff;
 }
 
 .sidebar-link.active {
-  background-color: #1d2d1f;
+  background-color: #1c120c;
   color: #ffffff;
-  border-left-color: var(--brown-300);
+  border-left-color: #c49a6c;
 }
 
 .sidebar-link svg {
-  width: 17px;
-  height: 17px;
+  width: 16px;
+  height: 16px;
   fill: currentColor;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 .sidebar-divider {
   height: 1px;
   background-color: rgba(255, 255, 255, 0.1);
-  margin: var(--space-3) var(--space-4);
+  margin: var(--space-3) 20px;
 }
 
 .sidebar-link--logout {
   margin-top: auto;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  color: #c78888;
+  color: #d99a9a;
 }
 
 .sidebar-link--logout:hover {
-  background-color: rgba(138, 24, 24, 0.25);
+  background-color: rgba(140, 30, 30, 0.3);
   color: #ffffff;
 }
 
@@ -171,7 +203,7 @@ body {
 .page-content {
   padding: var(--space-5);
   flex: 1;
-  max-width: 1300px;
+  max-width: 1350px;
   width: 100%;
 }
 

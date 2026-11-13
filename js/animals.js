@@ -14,7 +14,15 @@ export async function renderDashboard(container) {
       getEstadisticas()
     ]);
 
-    container.innerHTML = `
+        container.innerHTML = `
+      <div class="farm-hero-banner">
+        <div class="farm-hero-frame">
+          <h1 class="farm-hero-title">FINCA GUATAVITA</h1>
+          <div class="farm-hero-divider"></div>
+          <p class="farm-hero-subtitle">Crianza de Ganado &bull; Control de Inventario &bull; Uver Quintero</p>
+        </div>
+      </div>
+
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-card__value">${stats.vacas ?? 0}</div>
