@@ -1,0 +1,73 @@
+/* ==========================================================
+   VARIABLES — Sistema de Gestión Ganadera Finca Guatavita
+   Design tokens: colors, typography, spacing, shadows.
+   ZERO border-radius anywhere.
+   ========================================================== */
+
+:root {
+  /* ── Green palette ── */
+  --green-900: #1a3c1a;
+  --green-700: #2d5016;
+  --green-500: #4a7c2e;
+  --green-400: #6b8f3c;
+  --green-100: #d4e6c3;
+
+  /* ── Brown palette ── */
+  --brown-900: #3e2723;
+  --brown-700: #5c3d2e;
+  --brown-500: #8b6914;
+  --brown-400: #a0522d;
+  --brown-300: #d2b48c;
+  --brown-100: #f5f0e8;
+
+  /* ── Semantic colors ── */
+  --color-primary:    var(--green-700);
+  --color-secondary:  var(--brown-700);
+  --color-danger:     #c62828;
+  --color-warning:    #e65100;
+  --color-success:    #2e7d32;
+  --color-info:       #1565c0;
+
+  /* ── Backgrounds ── */
+  --bg-body:  var(--brown-100);
+  --bg-card:  #ffffff;
+  --bg-sidebar: var(--green-900);
+
+  /* ── Text ── */
+  --text-primary:   #2c2c2c;
+  --text-secondary: #5c3d2e;
+  --text-inverse:   #ffffff;
+  --text-muted:     #757575;
+
+  /* ── Borders ── */
+  --border-color:    var(--brown-300);
+  --border-width:    2px;
+  --border:          var(--border-width) solid var(--border-color);
+
+  /* ── Typography ── */
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-size-sm:   14px;
+  --font-size-base: 16px;
+  --font-size-h3:   20px;
+  --font-size-h2:   24px;
+  --font-size-h1:   32px;
+  --line-height:    1.5;
+
+  /* ── Spacing scale ── */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  24px;
+  --space-6:  32px;
+  --space-7:  48px;
+
+  /* ── Shadows ── */
+  --shadow-sm:  0 1px 2px rgba(0, 0, 0, 0.08);
+  --shadow-md:  0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-lg:  0 4px 8px rgba(0, 0, 0, 0.12);
+
+  /* ── Layout ── */
+  --sidebar-width: 260px;
+  --topbar-height: 60px;
+}
