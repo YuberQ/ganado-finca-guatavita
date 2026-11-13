@@ -3,300 +3,260 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Entrar — Finca Ángel María</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Acceso — Finca Angel Maria</title>
   <style>
     :root {
-      --potrero: #2f5233;
-      --potrero-oscuro: #1f3a24;
-      --tierra: #8b5e34;
-      --crema: #f6f1e7;
-      --papel: #fffdf8;
-      --linea: #ded3bf;
-      --maiz: #e0a82e;
-      --tinta: #2a2420;
-      --tinta-suave: #6f6458;
-      --serif: 'Bitter', Georgia, 'Times New Roman', serif;
-      --sans: 'Source Sans 3', -apple-system, 'Segoe UI', Arial, sans-serif;
+      --farm-pine-dark: #16281a;
+      --farm-cream: #f5f0e6;
+      --font-display: 'Impact', 'Oswald', 'Franklin Gothic Medium', 'Arial Black', sans-serif;
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
-      font-family: var(--sans);
-      font-size: 16px;
-      color: var(--tinta);
-      background: var(--crema);
+      font-family: var(--font-sans);
+      background: linear-gradient(rgba(33, 26, 22, 0.65), rgba(33, 26, 22, 0.65)),
+                  url('https://images.unsplash.com/photo-1500595046743-cd271d694d30?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
       min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .entrada {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: minmax(320px, 42%) 1fr;
-    }
-
-    /* ── Panel de la finca ── */
-    .portada {
-      background: var(--potrero-oscuro);
-      background-image:
-        radial-gradient(ellipse at 20% 110%, rgba(224, 168, 46, 0.18), transparent 55%),
-        repeating-linear-gradient(-35deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 14px);
-      color: #f3ede2;
-      padding: 48px 44px 36px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .portada__logo {
-      width: 210px;
-      max-width: 70%;
-      filter: invert(1);
-      mix-blend-mode: screen;
-      opacity: 0.95;
-    }
-
-    .portada__texto {
-      margin-top: auto;
-      padding-top: 40px;
-    }
-
-    .portada__frase {
-      font-family: var(--serif);
-      font-size: 26px;
-      font-weight: 500;
-      line-height: 1.3;
-      max-width: 22ch;
-    }
-
-    .portada__frase em {
-      font-style: normal;
-      color: var(--maiz);
-    }
-
-    .portada__pie {
-      margin-top: 28px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(255,255,255,0.15);
-      font-size: 14px;
-      color: #c8bfae;
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    /* ── Formulario ── */
-    .acceso {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 40px 24px;
+      padding: 20px;
     }
 
-    .acceso__caja {
+    .login-wrapper {
       width: 100%;
-      max-width: 380px;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .saludo {
-      font-family: var(--serif);
-      font-size: 34px;
-      font-weight: 700;
-      line-height: 1.15;
-      color: var(--potrero-oscuro);
+    /* Logo insignia principal */
+    .brand-logo-container {
+      margin-bottom: 20px;
+      text-align: center;
     }
 
-    .subtitulo {
-      margin-top: 8px;
-      color: var(--tinta-suave);
-      font-size: 17px;
-    }
-
-    form { margin-top: 28px; }
-
-    .campo { margin-bottom: 18px; }
-
-    .campo label {
+    .brand-logo-img {
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.6));
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
       display: block;
-      font-weight: 600;
-      font-size: 15px;
-      margin-bottom: 6px;
+      margin: 0 auto;
     }
 
-    .campo__control { position: relative; }
+    .login-card {
+      width: 100%;
+      background: #ffffff;
+      border: 2px solid #211a16;
+      box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.35);
+    }
 
-    .campo input {
+    .login-header {
+      background-color: var(--farm-pine-dark);
+      color: #ffffff;
+      padding: 16px 20px;
+      text-align: center;
+      border-bottom: 2px solid #000000;
+    }
+
+    .login-header__title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    .login-body {
+      padding: 28px 24px;
+    }
+
+    .login-group {
+      margin-bottom: 20px;
+    }
+
+    .login-label {
+      display: block;
+      margin-bottom: 6px;
+      font-family: var(--font-sans);
+      font-weight: 800;
+      font-size: 11px;
+      color: #211a16;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .login-input {
       width: 100%;
       padding: 12px 14px;
-      font: inherit;
-      color: var(--tinta);
-      background: var(--papel);
-      border: 1px solid var(--linea);
-      border-radius: 10px;
-      transition: border-color 0.15s, box-shadow 0.15s;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: #211a16;
+      border: 1px solid #211a16;
+      background: #ffffff;
+      border-radius: 0;
     }
 
-    .campo input:focus {
+    .login-input:focus {
       outline: none;
-      border-color: var(--potrero);
-      box-shadow: 0 0 0 3px rgba(47, 82, 51, 0.18);
+      border-color: var(--farm-pine-dark);
+      box-shadow: inset 0 0 0 1px var(--farm-pine-dark);
     }
 
-    .campo input[type="password"], .campo input.con-boton { padding-right: 84px; }
-
-    .ver-clave {
-      position: absolute;
-      right: 6px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      font: inherit;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--tierra);
-      padding: 6px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .ver-clave:hover { background: rgba(139, 94, 52, 0.1); }
-
-    .boton {
+    .login-btn {
       width: 100%;
-      margin-top: 6px;
-      padding: 13px;
-      font: inherit;
-      font-weight: 700;
-      font-size: 17px;
-      color: #fff;
-      background: var(--potrero);
-      border: none;
-      border-radius: 10px;
+      padding: 14px;
+      background-color: var(--farm-pine-dark);
+      color: #ffffff;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 900;
+      border: 2px solid #000000;
+      border-radius: 0;
       cursor: pointer;
-      transition: background 0.15s, transform 0.05s;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: background-color 0.15s ease;
+      margin-top: 8px;
     }
 
-    .boton:hover { background: var(--potrero-oscuro); }
-    .boton:active { transform: translateY(1px); }
-    .boton:disabled { opacity: 0.6; cursor: wait; }
-
-    .ayuda {
-      margin-top: 22px;
-      font-size: 14px;
-      color: var(--tinta-suave);
-      line-height: 1.5;
+    .login-btn:hover {
+      background-color: #233e28;
     }
 
-    /* ── Avisos ── */
-    .aviso {
-      border-radius: 10px;
-      padding: 12px 14px 12px 16px;
-      margin-top: 22px;
-      font-size: 15px;
+    .login-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .login-error {
+      display: none;
+      padding: 10px 14px;
+      background-color: #fbeded;
+      color: #7d1c1c;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 800;
+      border: 1px solid #7d1c1c;
+      margin-bottom: 16px;
+    }
+
+    .login-error.visible {
+      display: block;
+    }
+
+    /* Avisos de la base de datos / sesión (mismo estilo que el mensaje de error) */
+    .login-aviso {
+      padding: 10px 14px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 600;
       line-height: 1.45;
-      border-left: 5px solid;
+      border: 1px solid;
+      margin-bottom: 16px;
     }
 
-    .aviso strong { display: block; margin-bottom: 2px; }
-    .aviso--info { background: #eef3ea; border-color: var(--potrero); color: #24402a; }
-    .aviso--aviso { background: #fdf4dc; border-color: var(--maiz); color: #5c4310; }
-    .aviso--critico, .aviso--caido, .aviso--error { background: #fbeceb; border-color: #a33a2f; color: #6e1f17; }
+    .login-aviso strong {
+      display: block;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .login-aviso--info    { background-color: #edf5ee; color: #16281a; border-color: #16281a; }
+    .login-aviso--aviso   { background-color: #fdf6e3; color: #6b4a00; border-color: #8c5000; }
+    .login-aviso--critico,
+    .login-aviso--caido   { background-color: #fbeded; color: #7d1c1c; border-color: #7d1c1c; }
 
     [hidden] { display: none !important; }
-
-    @media (max-width: 860px) {
-      .entrada { grid-template-columns: 1fr; }
-      .portada { padding: 28px 24px; flex-direction: row; align-items: center; gap: 18px; }
-      .portada__logo { width: 92px; }
-      .portada__texto { margin-top: 0; padding-top: 0; }
-      .portada__frase { font-size: 19px; }
-      .portada__pie { display: none; }
-      .acceso { align-items: flex-start; padding-top: 32px; }
-      .saludo { font-size: 28px; }
-    }
   </style>
 </head>
 <body>
-  <main class="entrada">
-    <section class="portada">
-      <img src="assets/logo-angel-maria.png" alt="Finca Ángel María, hierro HQ" class="portada__logo">
-      <div class="portada__texto">
-        <p class="portada__frase">El registro del ganado de la finca, <em>animal por animal</em>.</p>
-        <div class="portada__pie">
-          <span id="fecha-hoy"></span>
-          <span>Hierro HQ</span>
-        </div>
+  <div class="login-wrapper">
+    <!-- Logotipo Oficial HQ - Finca Angel Maria -->
+    <div class="brand-logo-container">
+      <img src="assets/logo-angel-maria.png" alt="Finca Angel Maria - HQ" class="brand-logo-img" />
+    </div>
+
+    <div class="login-card">
+      <div class="login-header">
+        <h2 class="login-header__title">Acceso al Sistema</h2>
       </div>
-    </section>
 
-    <section class="acceso">
-      <div class="acceso__caja">
-        <h1 class="saludo" id="saludo">Buenos días</h1>
-        <p class="subtitulo">Entre para ver cómo va el ganado.</p>
+      <div class="login-body">
+        <div id="estado-servicio" class="login-aviso" role="status" hidden></div>
+        <div id="aviso-sesion" class="login-aviso login-aviso--info" hidden></div>
+        <div id="login-error" class="login-error"></div>
 
-        <div id="estado-servicio" class="aviso" role="status" hidden></div>
-        <div id="aviso-sesion" class="aviso aviso--info" hidden></div>
-
-        <form id="login-form" novalidate>
-          <div id="login-error" class="aviso aviso--error" role="alert" hidden></div>
-
-          <div class="campo">
-            <label for="email">Correo</label>
-            <div class="campo__control">
-              <input type="email" id="email" name="email" required autocomplete="email" inputmode="email">
-            </div>
+        <form id="login-form">
+          <div class="login-group">
+            <label class="login-label" for="email">Correo Autorizado</label>
+            <input
+              class="login-input"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="usuario@dominio.com"
+              required
+              autocomplete="email"
+            >
           </div>
 
-          <div class="campo">
-            <label for="password">Contraseña</label>
-            <div class="campo__control">
-              <input type="password" id="password" name="password" required autocomplete="current-password">
-              <button type="button" class="ver-clave" id="ver-clave" aria-controls="password">Mostrar</button>
-            </div>
+          <div class="login-group">
+            <label class="login-label" for="password">Contraseña</label>
+            <input
+              class="login-input"
+              type="password"
+              id="password"
+              name="password"
+              placeholder="••••••••"
+              required
+              autocomplete="current-password"
+            >
           </div>
 
-          <button class="boton" type="submit" id="login-btn">Entrar</button>
+          <button class="login-btn" type="submit" id="login-btn">
+            Ingresar
+          </button>
         </form>
-
-        <p class="ayuda">¿Olvidó la contraseña? Pídale al administrador de la finca que se la cambie.</p>
       </div>
-    </section>
-  </main>
+    </div>
+  </div>
 
   <!-- Supabase CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script type="module" src="js/config.js"></script>
+  <script type="module" src="js/auth.js"></script>
 
   <script type="module">
-    import { login, getSession } from './js/auth.js';
-    import { revisarServicio } from './js/estado.js';
-
-    const $ = (id) => document.getElementById(id);
-
-    // Saludo según la hora y fecha de hoy
-    const ahora = new Date();
-    const h = ahora.getHours();
-    $('saludo').textContent = h < 5 ? 'Buenas noches' : h < 12 ? 'Buenos días' : h < 19 ? 'Buenas tardes' : 'Buenas noches';
-    const fecha = ahora.toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long' });
-    $('fecha-hoy').textContent = fecha.charAt(0).toUpperCase() + fecha.slice(1);
+    import { login } from './js/auth.js';
+    import { revisarServicio, mostrarUsoEnEsquina } from './js/estado.js';
 
     // ¿Se cerró la sesión por inactividad?
-    const motivo = new URLSearchParams(location.search).get('motivo');
-    if (motivo === 'inactividad') {
-      $('aviso-sesion').innerHTML = '<strong>Cerramos su sesión</strong>Pasaron 20 minutos sin usar la página. Vuelva a entrar para seguir.';
-      $('aviso-sesion').hidden = false;
+    if (new URLSearchParams(location.search).get('motivo') === 'inactividad') {
+      const aviso = document.getElementById('aviso-sesion');
+      aviso.innerHTML = '<strong>Sesión cerrada</strong>Pasaron 20 minutos sin usar la página. Vuelva a ingresar.';
+      aviso.hidden = false;
       history.replaceState(null, '', location.pathname);
     }
 
-    // Revisar que la base de datos responda y que haya espacio
+    // Revisar que la base de datos responda y que quede espacio
     revisarServicio().then((estado) => {
+      if (estado.uso) mostrarUsoEnEsquina(estado.uso, { fondoOscuro: true });
       if (estado.nivel === 'ok') return;
-      const caja = $('estado-servicio');
-      caja.className = `aviso aviso--${estado.nivel}`;
+      const caja = document.getElementById('estado-servicio');
+      caja.className = `login-aviso login-aviso--${estado.nivel}`;
       caja.innerHTML = '';
       const t = document.createElement('strong');
       t.textContent = estado.titulo;
@@ -304,56 +264,28 @@
       caja.hidden = false;
     });
 
-    // Si ya tiene sesión abierta, pasar directo
-    if (!motivo) {
-      getSession().then((s) => { if (s) location.href = 'app.html'; }).catch(() => {});
-    }
-
-    // Mostrar / ocultar contraseña
-    $('ver-clave').addEventListener('click', () => {
-      const input = $('password');
-      const mostrar = input.type === 'password';
-      input.type = mostrar ? 'text' : 'password';
-      input.classList.toggle('con-boton', mostrar);
-      $('ver-clave').textContent = mostrar ? 'Ocultar' : 'Mostrar';
-    });
-
-    function traducirError(err) {
-      const m = (err && err.message) || '';
-      if (/invalid login credentials/i.test(m)) return 'El correo o la contraseña no coinciden. Revíselos e intente de nuevo.';
-      if (/email not confirmed/i.test(m)) return 'Ese correo todavía no está confirmado.';
-      if (/failed to fetch|network|load failed/i.test(m)) return 'No hubo conexión con la base de datos. Revise el internet.';
-      if (/too many|rate limit/i.test(m)) return 'Demasiados intentos seguidos. Espere un par de minutos.';
-      return m || 'No se pudo entrar. Intente de nuevo.';
-    }
-
-    const form = $('login-form');
-    const errorBox = $('login-error');
-    const btn = $('login-btn');
+    const form = document.getElementById('login-form');
+    const errorDiv = document.getElementById('login-error');
+    const btn = document.getElementById('login-btn');
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      errorBox.hidden = true;
-
-      const email = $('email').value.trim();
-      const password = $('password').value;
-      if (!email || !password) {
-        errorBox.textContent = 'Escriba el correo y la contraseña.';
-        errorBox.hidden = false;
-        return;
-      }
-
+      errorDiv.classList.remove('visible');
       btn.disabled = true;
-      btn.textContent = 'Entrando…';
+      btn.textContent = 'Verificando credenciales…';
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
       try {
         const { error } = await login(email, password);
         if (error) throw error;
-        location.href = 'app.html';
+        window.location.href = 'app.html';
       } catch (err) {
-        errorBox.textContent = traducirError(err);
-        errorBox.hidden = false;
+        errorDiv.textContent = err.message || 'Error al autenticar';
+        errorDiv.classList.add('visible');
         btn.disabled = false;
-        btn.textContent = 'Entrar';
+        btn.textContent = 'Ingresar';
       }
     });
   </script>
