@@ -1,19 +1,14 @@
 /* ==========================================================
-   LAYOUT — Sidebar + Main Content Shell
+   LAYOUT — Estilo Periódico / Editorial
+   Inspiración The New York Times / Financial Times
    ========================================================== */
 
-/* ── Reset & base ── */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
-
-html {
-  font-size: var(--font-size-base);
-  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -23,105 +18,149 @@ body {
   color: var(--text-primary);
   background-color: var(--bg-body);
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ── Sidebar ── */
+/* ── Encabezado / Barra Superior ── */
+.top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--topbar-height);
+  background-color: var(--paper-card);
+  border-bottom: 2px solid var(--ink-black);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-5);
+  box-shadow: none;
+}
+
+.top-bar__hamburger {
+  display: none;
+  background: none;
+  border: 1px solid var(--border-color);
+  padding: var(--space-2);
+  cursor: pointer;
+  margin-right: var(--space-4);
+  color: var(--ink-black);
+}
+
+.top-bar__hamburger svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+.top-bar__title {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: var(--ink-black);
+  text-transform: uppercase;
+}
+
+/* ── Menú Lateral / Registro ── */
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
+  bottom: 0;
   width: var(--sidebar-width);
-  height: 100vh;
   background-color: var(--bg-sidebar);
-  overflow-y: auto;
+  border-right: 2px solid var(--ink-black);
   z-index: 1000;
   display: flex;
   flex-direction: column;
-  border-right: 3px solid var(--green-700);
+  overflow-y: auto;
 }
 
 .sidebar-header {
   padding: var(--space-5) var(--space-4);
-  border-bottom: 2px solid var(--green-700);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .sidebar-logo {
-  color: var(--text-inverse);
-  font-size: var(--font-size-h3);
-  font-weight: 700;
-  text-decoration: none;
   display: block;
+  text-decoration: none;
+  color: #f7f5f0;
+  font-family: var(--font-serif);
+  font-size: 19px;
+  font-weight: 700;
   letter-spacing: 0.5px;
+  line-height: 1.2;
+  text-transform: uppercase;
 }
 
 .sidebar-logo span {
   display: block;
-  font-size: var(--font-size-sm);
-  font-weight: 400;
-  color: var(--green-100);
-  margin-top: var(--space-1);
-  letter-spacing: 0;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--brown-300);
+  margin-top: 4px;
+  letter-spacing: 1.5px;
 }
 
 .sidebar-nav {
-  flex: 1;
   padding: var(--space-3) 0;
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
 .sidebar-link {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-3) var(--space-5);
-  color: var(--green-100);
+  padding: 11px var(--space-4);
+  color: #d6d3cc;
   text-decoration: none;
-  font-size: var(--font-size-base);
-  font-weight: 500;
-  transition: background-color 0.15s ease, color 0.15s ease;
-  border-left: 4px solid transparent;
-}
-
-.sidebar-link svg {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-  fill: currentColor;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  border-left: 3px solid transparent;
+  transition: background-color 0.1s ease, color 0.1s ease;
+  text-transform: uppercase;
 }
 
 .sidebar-link:hover {
-  background-color: var(--green-700);
+  background-color: rgba(255, 255, 255, 0.05);
   color: #ffffff;
-  border-left-color: var(--green-400);
 }
 
 .sidebar-link.active {
-  background-color: var(--green-700);
+  background-color: #1d2d1f;
   color: #ffffff;
-  border-left-color: var(--green-100);
-  font-weight: 700;
+  border-left-color: var(--brown-300);
+}
+
+.sidebar-link svg {
+  width: 17px;
+  height: 17px;
+  fill: currentColor;
+  opacity: 0.8;
 }
 
 .sidebar-divider {
-  height: 2px;
-  background-color: var(--green-700);
-  margin: var(--space-2) var(--space-4);
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin: var(--space-3) var(--space-4);
 }
 
 .sidebar-link--logout {
   margin-top: auto;
-  border-top: 2px solid var(--green-700);
-  color: #e0e0e0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #c78888;
 }
 
 .sidebar-link--logout:hover {
-  background-color: var(--color-danger);
+  background-color: rgba(138, 24, 24, 0.25);
   color: #ffffff;
-  border-left-color: #ff5252;
 }
 
-/* ── Main content ── */
+/* ── Área de Contenido Principal ── */
 .main-content {
   margin-left: var(--sidebar-width);
   min-height: 100vh;
@@ -129,58 +168,13 @@ body {
   flex-direction: column;
 }
 
-/* ── Top bar ── */
-.top-bar {
-  position: sticky;
-  top: 0;
-  z-index: 500;
-  background-color: #ffffff;
-  border-bottom: var(--border);
-  padding: var(--space-3) var(--space-5);
-  display: flex;
-  align-items: center;
-  min-height: var(--topbar-height);
-}
-
-.top-bar__title {
-  font-size: var(--font-size-h2);
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.top-bar__hamburger {
-  display: none;
-  background: none;
-  border: var(--border);
-  padding: var(--space-2);
-  margin-right: var(--space-3);
-  cursor: pointer;
-  color: var(--text-primary);
-  line-height: 1;
-}
-
-.top-bar__hamburger svg {
-  width: 24px;
-  height: 24px;
-  display: block;
-  fill: currentColor;
-}
-
-/* ── Page content ── */
 .page-content {
   padding: var(--space-5);
   flex: 1;
+  max-width: 1300px;
+  width: 100%;
 }
 
-/* ── Sidebar overlay for mobile ── */
 .sidebar-overlay {
   display: none;
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-}
-
-body.sidebar-open .sidebar-overlay {
-  display: block;
 }

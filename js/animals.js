@@ -1,4 +1,4 @@
-import { getAnimales, getAnimal, createAnimal, updateAnimal, getCrias, getCriaActual, getPesajes, addPesaje, venderAnimal, marcarPerdido } from './db.js';
+﻿import { getAnimales, getAnimal, createAnimal, updateAnimal, getCrias, getCriaActual, getPesajes, addPesaje, venderAnimal, marcarPerdido } from './db.js';
 import { uploadPhoto, uploadProfilePhoto, addPhoto, getPhotos, deletePhoto } from './storage.js';
 import { showModal, showNoteModal, showToast, showConfirm, showLoading, hideLoading, formatDate, formatDateTime, formatMoney, formatWeight, createAnimalCard, escapeHTML } from './ui.js';
 import { renderHistoryModal } from './history.js';
@@ -312,14 +312,14 @@ export async function renderAnimalDetail(container, id) {
     const profileSrc = animal.foto_perfil_url || '';
     const profileHTML = profileSrc
       ? `<img src="${escapeHTML(profileSrc)}" alt="${escapeHTML(animal.nombre)}" class="detail-profile-photo" />`
-      : `<div class="detail-profile-placeholder">📷</div>`;
+      : `<div class="detail-profile-placeholder">Sin Fotografía</div>`;
 
     container.innerHTML = `
       <div class="detail-section">
         <div class="detail-header">
           <div class="detail-photo-wrapper">
             ${profileHTML}
-            <button class="btn btn-icon history-icon" id="btn-history" title="Historial de cambios">⚠️</button>
+            <button class="btn btn-sm history-icon" id="btn-history" title="Historial de cambios">Historial</button>
           </div>
           <div class="detail-info">
             <h2>${escapeHTML(animal.nombre)} <span class="badge badge-${animal.tipo}">${escapeHTML(animal.tipo)}</span></h2>
@@ -373,7 +373,7 @@ export async function renderAnimalDetail(container, id) {
         <div style="display:flex;align-items:center;gap:12px;">
           ${criaActual.foto_perfil_url
             ? `<img src="${escapeHTML(criaActual.foto_perfil_url)}" style="width:80px;height:80px;object-fit:cover;" />`
-            : `<div style="width:80px;height:80px;background:#eee;display:flex;align-items:center;justify-content:center;">📷</div>`
+            : `<div style="width:80px;height:80px;background:#eee;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;">Sin Foto</div>`
           }
           <div>
             <p><strong>${escapeHTML(criaActual.nombre)}</strong></p>

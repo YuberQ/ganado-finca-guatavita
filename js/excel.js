@@ -1,4 +1,4 @@
-// excel.js — Generador y exportador exacto de Excel (.xlsx) con SheetJS
+﻿// excel.js — Generador y exportador exacto de Excel (.xlsx) con SheetJS
 import { getAnimales, getVendidos, getPerdidos } from './db.js';
 import { showToast, showLoading, hideLoading } from './ui.js';
 
@@ -6,7 +6,7 @@ export function renderExportPage(container) {
   container.innerHTML = `
     <div class="card" style="max-width: 750px; margin: 0 auto;">
       <div class="card-header">
-        <h2>📥 Exportar Relación de Ganado a Excel</h2>
+        <h2> Exportar Relación de Ganado a Excel</h2>
       </div>
       <div class="card-body">
         <p style="font-size:14px; color:var(--text-secondary); margin-bottom:20px; line-height:1.5;">
@@ -44,7 +44,7 @@ export function renderExportPage(container) {
 
           <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:24px;">
             <button type="submit" class="btn btn-primary btn-lg" style="padding:14px 28px; font-size:16px;">
-              📊 Descargar Archivo Excel (.xlsx)
+               Descargar Archivo Excel (.xlsx)
             </button>
           </div>
         </form>
@@ -238,3 +238,4 @@ export async function exportToExcel(options = { vacas: true, toros: true, novill
     hideLoading();
   }
 }
+

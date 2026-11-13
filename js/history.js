@@ -1,4 +1,4 @@
-// history.js — Modal y visualización del historial de cambios
+﻿// history.js — Modal y visualización del historial de cambios
 import { getHistorial } from './db.js';
 import { formatDate, formatDateTime, escapeHTML, showLoading, hideLoading, showToast } from './ui.js';
 
@@ -28,7 +28,7 @@ export async function renderHistoryModal(animalId) {
     modal.innerHTML = `
       <div class="modal-content" style="max-width: 780px;">
         <div class="modal-header">
-          <span>⚠️ Historial de Modificaciones</span>
+          <span>️ Historial de Modificaciones</span>
           <button class="modal-close" aria-label="Cerrar">&times;</button>
         </div>
         <div class="modal-body" style="padding: 16px;">
@@ -74,3 +74,4 @@ export async function renderHistoryModal(animalId) {
     hideLoading();
   }
 }
+

@@ -1,4 +1,5 @@
 // ui.js — Componentes de interfaz, modales, toasts, formateadores y utilidades
+// Estilo Editorial / Prensa Institucional (Sin emojis)
 
 export function escapeHTML(str) {
   if (str == null) return '';
@@ -11,7 +12,7 @@ export function escapeHTML(str) {
 }
 
 export function formatDate(dateStr) {
-  if (!dateStr) return '';
+  if (!dateStr) return '—';
   const d = new Date(dateStr);
   if (isNaN(d.getTime())) return String(dateStr);
   const day = String(d.getUTCDate()).padStart(2, '0');
@@ -21,7 +22,7 @@ export function formatDate(dateStr) {
 }
 
 export function formatDateTime(dateStr) {
-  if (!dateStr) return '';
+  if (!dateStr) return '—';
   const d = new Date(dateStr);
   if (isNaN(d.getTime())) return String(dateStr);
   const day = String(d.getDate()).padStart(2, '0');
@@ -50,12 +51,16 @@ export function showLoading() {
     loader.id = 'global-loading';
     loader.style.position = 'fixed';
     loader.style.inset = '0';
-    loader.style.backgroundColor = 'rgba(0, 0, 0, 0.45)';
+    loader.style.backgroundColor = 'rgba(17, 17, 17, 0.45)';
     loader.style.display = 'flex';
     loader.style.alignItems = 'center';
     loader.style.justifyContent = 'center';
     loader.style.zIndex = '9999';
-    loader.innerHTML = '<div class="loading"></div>';
+    loader.innerHTML = `
+      <div style="background:#ffffff; border:2px solid #111111; padding:16px 24px; font-family:var(--font-sans); font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:1px;">
+        Procesando registro...
+      </div>
+    `;
     document.body.appendChild(loader);
   } else {
     loader.style.display = 'flex';
@@ -85,7 +90,8 @@ export function showToast(message, type = 'success') {
   container.appendChild(toast);
 
   setTimeout(() => {
-    toast.classList.add('toast--hiding');
+    toast.style.opacity = '0';
+    toast.style.transition = 'opacity 0.25s ease';
     setTimeout(() => {
       if (toast.parentNode) toast.parentNode.removeChild(toast);
     }, 250);
@@ -135,7 +141,7 @@ export function showModal(title, contentHTML, onConfirm, onCancel) {
     modal.querySelector('.btn-confirm').addEventListener('click', async () => {
       if (typeof onConfirm === 'function') {
         const res = await onConfirm();
-        if (res === false) return; // Validación falló dentro de onConfirm
+        if (res === false) return;
       }
       close();
       resolve(true);
@@ -152,24 +158,24 @@ export function showNoteModal(title, onConfirm) {
     modal.innerHTML = `
       <div class="modal-content">
         <div class="modal-header">
-          <span>${escapeHTML(title || 'Nota Obligatoria')}</span>
+          <span>${escapeHTML(title || 'Nota Requerida de Auditoría')}</span>
           <button class="modal-close" aria-label="Cerrar">&times;</button>
         </div>
         <div class="modal-body">
-          <p style="margin-bottom:12px; font-weight:600; color:var(--brown-700);">
-            Este cambio requiere registrar una justificación para el historial:
+          <p style="margin-bottom:12px; font-family:var(--font-sans); font-size:12px; font-weight:700; text-transform:uppercase; color:var(--brown-700);">
+            Este cambio requiere registrar una justificación formal para el historial:
           </p>
           <div class="form-group">
-            <label class="form-label" for="modal-note-input">Motivo / Observación *</label>
+            <label class="form-label" for="modal-note-input">Motivo / Justificación *</label>
             <textarea id="modal-note-input" class="form-textarea" rows="4" placeholder="Escriba aquí la razón del cambio (obligatorio)..." required></textarea>
-            <div id="modal-note-error" style="color:var(--color-danger); font-size:13px; font-weight:600; margin-top:4px; display:none;">
+            <div id="modal-note-error" style="color:var(--color-danger); font-family:var(--font-sans); font-size:12px; font-weight:700; margin-top:4px; display:none;">
               La nota es obligatoria para continuar.
             </div>
           </div>
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary btn-cancel">Cancelar</button>
-          <button class="btn btn-primary btn-save">Guardar Cambio</button>
+          <button class="btn btn-primary btn-save">Guardar Modificación</button>
         </div>
       </div>
     `;
@@ -212,7 +218,7 @@ export function showNoteModal(title, onConfirm) {
   });
 }
 
-// Modal de confirmación simple Sí/No
+// Modal de confirmación simple
 export function showConfirm(message, onConfirm) {
   return new Promise((resolve) => {
     const modal = document.createElement('div');
@@ -221,15 +227,15 @@ export function showConfirm(message, onConfirm) {
     modal.innerHTML = `
       <div class="modal-content" style="max-width: 440px;">
         <div class="modal-header">
-          <span>Confirmación</span>
+          <span>Confirmación de Acción</span>
           <button class="modal-close" aria-label="Cerrar">&times;</button>
         </div>
         <div class="modal-body">
-          <p style="font-size:16px; color:var(--text-primary);">${escapeHTML(message)}</p>
+          <p style="font-size:15px; color:var(--text-primary); line-height:1.4;">${escapeHTML(message)}</p>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-secondary btn-cancel">No, Cancelar</button>
-          <button class="btn btn-primary btn-confirm">Sí, Continuar</button>
+          <button class="btn btn-secondary btn-cancel">Cancelar</button>
+          <button class="btn btn-primary btn-confirm">Continuar</button>
         </div>
       </div>
     `;
@@ -260,25 +266,25 @@ export function showConfirm(message, onConfirm) {
   });
 }
 
-// Generador de Tarjeta de Animal
+// Generador de Tarjeta de Animal (Estilo Archivo Fotográfico)
 export function createAnimalCard(animal) {
   const photo = animal.foto_perfil_url
     ? `<img src="${escapeHTML(animal.foto_perfil_url)}" alt="${escapeHTML(animal.nombre)}" class="animal-card__photo" />`
-    : `<div class="animal-card__photo--placeholder">🐄</div>`;
+    : `<div class="animal-card__photo--placeholder">Sin Fotografía</div>`;
 
   const tipo = animal.tipo || 'animal';
   const peso = animal.peso_actual || animal.peso_entrada;
-  const pesoStr = peso ? formatWeight(peso) : '';
+  const pesoStr = peso ? formatWeight(peso) : 'Sin pesar';
 
   return `
     <div class="animal-card" data-id="${escapeHTML(animal.id)}">
       ${photo}
       <div class="animal-card__info">
+        <div class="animal-card__number">Registro N° ${escapeHTML(animal.numero)}</div>
         <div class="animal-card__name">${escapeHTML(animal.nombre)}</div>
-        <div class="animal-card__number">N° ${escapeHTML(animal.numero)}</div>
         <div class="animal-card__meta">
           <span class="badge badge-${escapeHTML(tipo)}">${escapeHTML(tipo)}</span>
-          ${pesoStr ? `<span style="font-size:13px; font-weight:600; color:var(--brown-700);">${pesoStr}</span>` : ''}
+          <span style="font-family:var(--font-sans); font-size:12px; font-weight:700; color:var(--ink-soft);">${pesoStr}</span>
         </div>
       </div>
     </div>
